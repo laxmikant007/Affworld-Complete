@@ -1,0 +1,424 @@
+.top-name-advertiser{
+    text-align: center;
+    margin-top:15px;
+    font-size: 3rem;
+    /* border: 1px solid red; */
+    margin-left: 18rem;
+}
+
+
+.advertisers-top{
+    background-color: #fff;
+    border-bottom: 1px solid #e7e7e7;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    margin-bottom: 0;
+    margin-top: 100px;
+    /* margin-left: 18rem; */
+    min-height: 100px;
+    position: center;
+    z-index: 1030;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* background-color: #f2f2f2; */
+}
+.add-advertiser-btn {
+    float: right;
+    background-color: lightgreen;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: black
+  }
+  
+  .add-advertiser-btn:hover {
+    background-color: green;
+  }
+
+.advertisers-lower{
+  margin: auto;
+    background-color: #fff;
+    border-bottom: 1px solid #e7e7e7;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    /* margin-bottom: 0; */
+    margin-top: 10px;
+    /* margin-left: 18rem; */
+    min-height: 100px;
+    position: center;
+    /* z-index: relative; */
+    /* height: 100px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* background-color: #f2f2f2; */
+}
+  
+  .advertisers-top a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: 1px solid green;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 50px;
+  }
+  
+  .advertisers-top a:hover {
+    /* background-color: #ddd; */
+    color: black;
+    background-color: lightgreen;
+  }
+
+    .advertisers-top a.active {
+        /* background-color: #2196F3; */
+        color: white;
+        background-color: lightgreen;
+    }
+
+    .main-container {
+        display: flex;
+      }
+      
+      .list-item {
+        width: auto;
+        margin-right: 50px;
+      }
+      
+      .item-header {
+        background-color: rgb(197, 244, 239);
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.5s ease;
+        border-radius: 30px;
+        
+        /* align-items: center; */
+      }
+      
+      .item-header:hover {
+        background-color: lightgreen;
+      }
+      .item-header:after {
+        content: "▼";
+        display: inline-block;
+        padding-right: 5px;
+        transform: rotate(90deg);
+        transition: transform 0.3s;
+      }
+      
+      .item-header.active:before {
+        transform: rotate(-90deg);
+      }
+
+      
+      .sub-list {
+        padding: 10px;
+        background-color: lightgrey;
+        /* max-height: 0; */
+        /* overflow: hidden; */
+        cursor: pointer;
+        transition: max-height 0.5s ease;
+      }
+      
+      .list-item.expanded .sub-list {
+        max-height: 500px;
+      }
+      
+      input[type="text"] {
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: none;
+        margin-top: 10px;
+      }
+  /* //advertiser body css */
+
+  .advertisers-body {
+   margin: auto;
+    background-color: #fff;
+    border-bottom: 1px solid #e7e7e7;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    margin-top: 10px;
+    /* margin-left: 18rem; */
+    min-height: 100px;
+    position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    /* height : 100%; */
+
+
+  }
+  
+  .advertisers-body-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .advertisers-body-button {
+    background-color: lightgray;
+    border: 1px solid gray;
+    padding: 10px 20px;
+    border-radius: 5px;
+    /* margin-right: 10px; */
+    margin-right: 60px;
+  }
+  
+  .advertisers-body-item {
+    margin-right: 100px;
+    padding: 10px 20px;
+    background-color: lightgray;
+    border: 1px solid gray;
+    border-radius: 5px;
+  }
+
+
+
+
+
+  /* side pannel css here----> */
+
+
+  /* .add-advertiser-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ddd;
+  } */
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+  }
+
+
+
+  .add-advertiser-form {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 700px;
+    height: 100%;
+    background-color: rgb(244, 238, 238);
+    transition: all 1.5s ease;
+  }
+  
+  .add-advertiser-form.open {
+    right: 0;
+  }
+  
+  .add-advertiser-form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .add-advertiser-form label input,
+  .add-advertiser-form label select {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 16px;
+  }
+  
+  .add-advertiser-form input[type="submit"] {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .add-advertiser-form input[type="submit"]:hover {
+    background-color: #005b80;
+  }
+
+  h1{
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .payment-field-text{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  #finicial-informaton{
+    display: block;
+    
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+
+
+
+
+
+
+
+
+
+
+  /* css for this editted form */
+/* fix this code to display the password field and confirm password field to display in same row  */
+  label input[type="password"] {
+    display: block;
+    width: 30%;
+  }
+  
+  label input[name="confirmPassword"] {
+    display: block;
+    width: 30%;
+    
+  }
+
+  label {
+    display: block;
+    margin-left: 20px;
+  }
+  
+  input {
+    display: block;
+    width: 100%;
+  }
+
+
+
+  
+.add-advertiser-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.add-advertiser-form input,
+.add-advertiser-form select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.add-advertiser-form .credential h3 {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.add-advertiser-form .contact,
+.add-advertiser-form .address,
+.add-advertiser-form .administration {
+  width: 50%;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.add-advertiser-form .contact h2,
+.add-advertiser-form .address h2,
+.add-advertiser-form .administration h2 {
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+.add-advertiser-form .add-contact-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-advertiser-form input[type="submit"] {
+  margin-top: 20px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+
+/* css for this editted form ends here */
+
+.profile-options {
+  /* position: absolute; */
+  right: 4.5rem;
+  top: 79px;
+  width: 200px;
+  max-height: fit-content;
+  box-shadow: 0 8px 9px 0 rgba(160, 160, 160, 0.5);
+  background-color: #fff;
+  height: 0px;
+  overflow-y: hidden;
+  transition: all 0.5s ease-in;
+}
+
+.profile-options>ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: inherit;
+  height: inherit;
+}
+
+.profile-options>ul>li {
+  height: 47px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 11px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #8443e5;
+}
+
+.profile-options>ul>li:last-child {
+  border-bottom: none;
+}
+
+.profile-options ul li a {
+  display: block;
+  padding: 18px 0px 0px 34px;
+  width: 100%;
+  height: 100%;
+}
+
+.profile-options ul li a:hover {
+  background-color: #f2edf8;
+}
