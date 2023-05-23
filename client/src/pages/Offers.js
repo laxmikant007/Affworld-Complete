@@ -1,6 +1,7 @@
 import React from 'react'
-import { useState } from 'react';
-import "../assets/css/offers.css";
+import { useState, useEffect } from 'react';
+import "./style/campagin.css";
+import { Link } from 'react-router-dom';
 
 
 export default function Offers() {
@@ -12,6 +13,7 @@ export default function Offers() {
   const [categoryVisible, setCategoryVisible] = useState(false);
   const [goalVisible, setGoalVisible] = useState(false);
   const [addFormVisible, setAddFormVisible] = useState(false);
+  const [data, setData] = useState([]);
 
 
   const toggleStatus = () => {
@@ -38,6 +40,37 @@ export default function Offers() {
   const toggleGoal = () => {
     setGoalVisible(!goalVisible);
   };
+
+  const getData = async () => {
+
+
+    try {
+      const url = "https://affilator.onrender.com/campaign/";
+
+      let result = await fetch(url, {
+        method: "get",
+        headers: {
+          'Content-Type': 'application/json',
+          'api_key': 'key'
+        }
+      });
+      result = await result.json();
+      console.log("jjh", result)
+      setData(result)
+
+    } catch (error) {
+      console.log("error is-->", error)
+    }
+
+  }
+
+
+
+  useEffect(() => {
+    getData()
+  }, []);
+
+
 
 
   return (
@@ -72,47 +105,47 @@ export default function Offers() {
               <input type="file" name="profilePicture" />
             </label>
             <label>
-            Advertiser:
-              <input style={{width:"30%"}} type="text" placeholder='search' name="advertiser" />
+              Advertiser:
+              <input style={{ width: "30%" }} type="text" placeholder='search' name="advertiser" />
             </label>
-            <label style={{width:"30%" }} type="text" >
-            <h2 >Offer Availability:</h2>
-                <select name="offers-availability">
-                  <option value="public">Public</option>
-                  <option value="approval">Requires Approval</option>
-                  <option value="private">Private</option>
-                </select>
-              </label>
-            
+            <label style={{ width: "30%" }} type="text" >
+              <h2 >Offer Availability:</h2>
+              <select name="offers-availability">
+                <option value="public">Public</option>
+                <option value="approval">Requires Approval</option>
+                <option value="private">Private</option>
+              </select>
+            </label>
 
 
-              <div class="landing-page" style={{ width:"60%"}} >
+
+            <div class="landing-page" style={{ width: "60%" }} >
               <h2>Offer Landing Page</h2>
-             
+
               <label>
-              Landing Page URL:
+                Landing Page URL:
                 <input type="text" name="landing-page-url" placeholder='http://landing-page.com' />
               </label>
 
               <label>
-              Preview URL:
+                Preview URL:
                 <input type="text" name="preview-page-url" placeholder='http://preview-page.com' />
               </label>
 
-              
+
 
 
             </div>
 
-            <div class="offer-goal" style={{ width:"60%"}} >
+            <div class="offer-goal" style={{ width: "60%" }} >
               <h2>Offer Goal</h2>
-             
-              
-                <label>
-                  Goal Title:
-                  <input type="text" name="goal-title" />
-                </label>
-                <label>
+
+
+              <label>
+                Goal Title:
+                <input type="text" name="goal-title" />
+              </label>
+              <label>
                 Goal Type:
                 <select name="trafficTypes">
                   <option value="cpa">CPA(fixed payout)</option>
@@ -129,12 +162,12 @@ export default function Offers() {
 
 
               <label>
-              Revenue:
+                Revenue:
                 <input type="text" name="preview-page-url" placeholder='$' />
               </label>
 
               <label>
-              Payout:
+                Payout:
                 <input type="text" name="preview-page-url" placeholder='$' />
               </label>
 
@@ -143,10 +176,10 @@ export default function Offers() {
 
 
 
-            <div class="offer-goal" style={{ width:"60%"}} >
+            <div class="offer-goal" style={{ width: "60%" }} >
               <h2>Additional Information</h2>
-            
-                <label>
+
+              <label>
                 Categories:
                 <select name="trafficTypes">
                   <option value="cpa">CPA(fixed payout)</option>
@@ -162,7 +195,7 @@ export default function Offers() {
               </label>
 
               <label>
-              Tags:
+                Tags:
                 <select name="trafficTypes">
                   <option value="cpa">CPA(fixed payout)</option>
                   <option value="cpc">CPC</option>
@@ -177,7 +210,7 @@ export default function Offers() {
               </label>
 
               <label>
-              Allowed Traffic Types:
+                Allowed Traffic Types:
                 <select name="trafficTypes">
                   <option value="cpa">CPA(fixed payout)</option>
                   <option value="cpc">CPC</option>
@@ -193,8 +226,8 @@ export default function Offers() {
 
 
               <label>
-              Denied Traffic Types
-:
+                Denied Traffic Types
+                :
                 <select name="trafficTypes">
                   <option value="cpa">CPA(fixed payout)</option>
                   <option value="cpc">CPC</option>
@@ -209,8 +242,8 @@ export default function Offers() {
               </label>
             </div>
             <div>
-             
-             
+
+
               <label>
                 External ID:
                 <input type="text" name="external-id" />
@@ -223,7 +256,7 @@ export default function Offers() {
 
 
 
-          
+
           </form>
         </div>
       )}
@@ -331,7 +364,7 @@ export default function Offers() {
 
       </div>
 
-      <div className="advertisers-body">
+      {/* <div className="advertisers-body">
 
         <div className="advertisers-body-container">
           <button className="advertisers-body-button">Status</button>
@@ -341,6 +374,56 @@ export default function Offers() {
           <div className="advertisers-body-item">Targeting</div>
           <div className="advertisers-body-item">Performance</div>
           <div className="advertisers-body-item">Conversions</div>
+        </div>
+
+      </div> */}
+
+
+      <div className="affilate-body">
+        <div className="affilates-body-container">
+
+          <table className='affilate-table-data'>
+            <tr>
+
+              <td className="advertisers-body-item">Campagin</td>
+              <td className="advertisers-body-item"> Description</td>
+              <td className="advertisers-body-item"> Tag</td>
+              <td className="advertisers-body-item"> URL</td>
+              <td className="advertisers-body-item"> code</td>
+            </tr>
+            {
+              data?.length > 0 && data?.map((item) => (
+
+                <>
+
+
+                  <tr>
+                    <td className='affilate-deatils-all'>{item?.name}</td>
+                    <td className='affilate-deatils-all'>{item?.description}</td>
+                    <td className='affilate-deatils-all'>10</td>
+                    <td  style={{fontSize:20}} className='affilate-deatils-all'>
+                      <a href={item?.url} target="_blank" rel="noopener noreferrer">
+                      Link
+                      </a>
+                    </td>
+                    <td className='affilate-deatils-all'>{item?.code}</td>
+                  </tr>
+                </>
+              ))
+
+
+            }
+
+          </table>
+
+
+
+
+
+          {/* <div className="advertisers-body-item">Teammates</div> */}
+          {/* <div className="advertisers-body-item">Registration</div> */}
+          {/* <div className="advertisers-body-item">Balance</div> */}
+          {/* <div className="advertisers-body-item">Conversions</div>  */}
         </div>
 
       </div>

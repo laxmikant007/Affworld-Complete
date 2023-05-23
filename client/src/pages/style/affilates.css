@@ -1,0 +1,64 @@
+.affilates-body-container {
+    display: flex;
+    margin-left: 100px;
+    /* background-color: red; */
+    border-color: 2px solid red;
+
+    /* justify-content: center; */
+    align-items: center;
+    
+  }
+
+  .affilate-body {
+    margin: auto;
+    display: flex;
+    margin-left: 20rem;
+    /* flex-direction: column; */
+     /* background-color: #fff;
+     border-bottom: 1px solid #e7e7e7;
+     box-shadow: 0 1px 3px rgba(0,0,0,.1);
+     margin-top: 10px;
+     /* margin-left: 18rem; */
+     /* min-height: 100px;
+     position: center;
+     display: flex;
+     justify-content: center;
+     align-items: center; */
+     /* padding: 30px;  */
+     /* height : 100%; */
+ 
+ 
+   }
+
+  .main-data-affilate{
+    /* max-width: fit-content; */
+    display: flex;
+    /* border: 2px solid black; */
+    margin-right: 400px;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container-data-affilate{
+    display: flex;
+    /* border: 2px solid black; */
+    flex-direction: row;
+    /* justify-content: center;
+    align-items: center; */
+  }
+
+
+  .affilate-table-data{
+    width: 50rem;
+  }
+
+
+  .affilate-deatils-all{
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    /* border: 2px solid black; */
+    padding: 20px;
+  }

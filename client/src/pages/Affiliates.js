@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import "./style/affilates.css";
 
 
 
@@ -62,7 +64,7 @@ export default function Affiliates() {
         }
       });
       result = await result.json();
-      console.log("jjh", result[0])
+      console.log("jjh", result)
       setData(result)
 
     } catch (error) {
@@ -71,11 +73,15 @@ export default function Affiliates() {
 
   }
 
+ 
 
+  useEffect(() => {
+    getData()
+    }, []);
 
 
   return (
-    <div style={{ padding:15, marginLeft:40}}  className='main-container-affilate'>
+    <div style={{ padding: 15, marginLeft: 40 }} className='main-container-affilate'>
 
       <div className="  advertisers">
         <h1 className='top-name-advertiser'>Affiliates</h1>
@@ -295,38 +301,56 @@ export default function Affiliates() {
         </div>
 
 
+        <div className="affilate-body">
+          <div className="affilates-body-container">
+
+            <table  className='affilate-table-data'>
+              <tr>
+             
+                <td className="advertisers-body-item">Affiliates</td>
+                <td className="advertisers-body-item"> Description</td>
+                <td className="advertisers-body-item"> Tags</td>
+              </tr>
+              {
+                data?.length > 0 && data?.map((item) => (
+
+                  <>
+                
+
+                    <tr>
+                      <td className='affilate-deatils-all'>{item?.name}</td>
+                      <td className='affilate-deatils-all'>{item?.desc}</td>
+                      <td className='affilate-deatils-all'>10</td>
+                    </tr>
+                  </>
+                ))
 
 
-        <div className="advertisers-body">
-          <div className='m-3'>
-            <button className="btn btn-primary " onClick={getData}>Click me!</button>
+              }
 
-          </div>
-          <div className="advertisers-body-container">
-            <button className="advertisers-body-button">Affiliates</button>
-            <div className="advertisers-body-item">Contacts</div>
-            <div className="advertisers-body-item">Tags</div>
-            <div className="advertisers-body-item">Teammates</div>
-            <div className="advertisers-body-item">Registration</div>
-            <div className="advertisers-body-item">Balance</div>
-            <div className="advertisers-body-item">Conversions</div>
+            </table>
+
+
+
+
+
+            {/* <div className="advertisers-body-item">Teammates</div> */}
+            {/* <div className="advertisers-body-item">Registration</div> */}
+            {/* <div className="advertisers-body-item">Balance</div> */}
+            {/* <div className="advertisers-body-item">Conversions</div>  */}
           </div>
 
         </div>
 
-        <div className=''>
-          {
-            data?.length > 0 && data?.map((item) => (
-              <div className='Container' style={{ background: "#b4f5fa", margin: 10 }} key={item?._id}>
-                <h1>Affilate Name : {item?.name}</h1>
-                <h1>Description of Affilate  : {item?.desc}</h1>
-              </div>
-            ))
-
-
-          }
+        <div className='main-data-affilate'>
 
         </div>
+
+
+
+
+
+
 
 
       </div>
