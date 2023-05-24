@@ -1,6 +1,22 @@
 const mongoose=require('mongoose')
-mongoose.connect("mongodb://127.0.0.1:27017/affworld", { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true
-});
+
+module.exports = ()=>{
+    const connectionParams  = {
+        useNewUrlParser: true,
+        useUnifiedTopology : true
+       
+    };
+
+    try {
+        mongoose.set('strictQuery', true); 
+        mongoose.connect(process.env.DB ,connectionParams);
+        console.log("Connected to Affworld database Successfully!!")
+        
+    } catch (error) {
+        console.log(error);
+        console.log("could not connect db:(");
+    }
+
+
+}
 
