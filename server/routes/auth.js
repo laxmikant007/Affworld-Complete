@@ -3,6 +3,12 @@ const {User} = require("../model/user");
 const Joi = require("joi");
 const bcrypt = require('bcrypt');
 
+
+router.get("/", async(req, res)=>{
+
+    res.send("All Affworld auth users working...")    
+})
+
 router.post("/", async(req,res)=>{
 
     try {

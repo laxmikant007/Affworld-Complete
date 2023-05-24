@@ -18,6 +18,9 @@ app.use(cors());
 app.use("/api/users", userRotes);
 app.use("/api/auth", authRoutes);
 
+app.get("/", (req, res)=>{
+    res.send("Affworld Server is running Live!!");
+})
 
 
 
