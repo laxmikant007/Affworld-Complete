@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import "./style/affilates.css";
 import 'bootstrap/dist/css/bootstrap.css';
+import { Modal, Button } from 'react-bootstrap';
 
 
 
@@ -20,6 +21,10 @@ export default function Affiliates() {
   const [status, setStatus] = useState("100");
   const [tag, setTag] = useState("100");
   const [teammate, setTeammate] = useState("100");
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [AdvitisorName, setAdvitisorName] = useState("");
+  const [description, setDescription] = useState("");
 
 
   const [data, setData] = useState([]);
@@ -80,6 +85,62 @@ export default function Affiliates() {
 
   }
 
+  const addAdvitisors = async () => {
+
+    try {
+      const url = "https://affilator.onrender.com/api/advitisor/";
+      console.log("data is-->", description, AdvitisorName)
+      let result = await fetch(url, {
+        method: "post",
+        headers: {
+          'Content-Type': 'application/json',
+          'api_key': 'key'
+        },
+        body: JSON.stringify({ name: AdvitisorName, desc: description }),
+      });
+      result = await result.json();
+      console.log("Addadbitisor callled", result);
+      setModalVisible(false);
+      getData();
+
+    } catch (error) {
+      console.log("error is while post-->", error)
+    }
+
+  }
+
+
+  const deleteAdvitisor = async(id) => {
+
+  
+    try {
+      console.log("id is -->", id)
+      const url = `https://affilator.onrender.com/api/advitisor/${id}`;
+      console.log("url is-->", url)
+ 
+      let result = await fetch(url, {
+          method: "delete",
+          headers: {
+              'Content-Type': 'application/json',
+              api_key: "key"  
+          },
+      });
+      result = await result.json()
+      getData();
+      console.log("result is-->", result)
+
+
+      if (result) {
+          console.log("Advitisor deleted Success!!")
+      }
+
+      
+    } catch (error) {
+        console.log("error  while delete Advitisor-->", error)
+    }
+  }
+
+
 
 
   useEffect(() => {
@@ -90,156 +151,50 @@ export default function Affiliates() {
   return (
     <div style={{ padding: 15, marginLeft: 40 }} className='main-container-affilate'>
 
-      <div style={{marginTop:60}}  className="  advertisers">
+      <div style={{ marginTop: 60 }} className="  advertisers">
         <h1 className='top-name-advertiser'>Advitisors</h1>
-        <div  className="advertisers-top">
+        <div className="advertisers-top">
           <a href="#">All Advitisors</a>
           <a href="#">My Advitisors</a>
           <a href="#">Pending Advitisors</a>
-          <button className="add-advertiser-btn" onClick={() => setAddFormVisible(!addFormVisible)}> + Add Affiliates</button>
+          <Button variant="primary" onClick={() => setModalVisible(true)}>
+            + Add Advitisors
+          </Button>
         </div>
-        {addFormVisible && (
-          <div className="add-advertiser-form">
+
+        <Modal show={modalVisible} onHide={() => setModalVisible(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>+ Add Advitisors</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             <form>
-              <h1 className="form-title-advertiser">Add Advitisors</h1>
-              <button className="add-advertiser-btn" onClick={() => setAddFormVisible(!addFormVisible)}> Close</button>
               <label>
-                Company Name:
-                <input type="text" name="companyName" />
+                Advitisor Name:
+                <input type="text" name="AdvitisorName" onChange={(e) => setAdvitisorName(e.target.value)} />
               </label>
               <label>
-                Status:
-                <select name="status">
-                  <option value="active">Active</option>
-                  <option value="pending">Pending</option>
-                  <option value="inactive">Inactive</option>
-                </select>
+
+                Description:
+                <input type="text" name="description" onChange={(e) => setDescription(e.target.value)} />
               </label>
-              <label>
-                Profile Picture:
-                <input type="file" name="profilePicture" />
-              </label>
-              <div className="credential"><h3>Access Credentials</h3></div>
-              <label>
-                Email:
-                <input type="email" name="email" />
-              </label>
-              <label>
-                Password:
-                <input type="password" name="password" />
-              </label>
-              <label>
-                Confirm Password:
-                <input type="password" name="confirmPassword" />
-              </label>
-              <div class="contact">
-                <h2>Contact</h2>
-                <label>
-                  First Name:
-                  <input type="text" name="firstName" />
-                </label>
-                <label>
-                  Last Name:
-                  <input type="text" name="lastName" />
-                </label>
-                <label>
-                  Phone:
-                  <input type="tel" name="phone" />
-                </label>
-                <label>
-                  Contact Type:
-                  <select name="contactType">
-                    <option value="skype">Skype</option>
-                    <option value="whatsapp">WhatsApp</option>
-                    <option value="facebook-messenger">Facebook Messenger</option>
-                    <option value="viber">Viber</option>
-                    <option value="telegram">Telegram</option>
-                    <option value="line">Line</option>
-                  </select>
-                </label>
-                <button class="add-contact-button">+ Add Contact</button>
-              </div>
-
-
-              <div class="address">
-                <h2>Address</h2>
-                <label>
-                  Country:
-                  <input type="text" name="country" />
-                </label>
-                <label>
-                  Religion:
-                  <input type="text" name="religion" />
-                </label>
-                <label>
-                  City:
-                  <input type="text" name="city" />
-                </label>
-                <label>
-                  Postcode:
-                  <input type="text" name="postcode" />
-                </label>
-                <label>
-                  Street:
-                  <input type="text" name="street" />
-                </label>
-              </div>
-
-
-              <div class="administration">
-                <h2>Administration</h2>
-                <label>
-                  Tags:
-                  <select name="tags">
-                    <option value="business">Business</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="computer-networking">Computer Networking</option>
-                  </select>
-                </label>
-                <label>
-                  Traffic Types:
-                  <select name="trafficTypes">
-                    <option value="banners">Banners</option>
-                    <option value="email">Email</option>
-                    <option value="social-media">Social Media</option>
-                    <option value="search">Search</option>
-                    <option value="non-incentivized">Non-Incentivized</option>
-                    <option value="incentivized">Incentivized</option>
-                  </select>
-                </label>
-                <label>
-                  Teammates:
-                  <select name="teammate">
-                    <option value="rahul">Rahul</option>
-                    <option value="raman">Raman</option>
-                    <option value="Aman">Aman</option>
-
-                  </select>
-                </label>
-              </div>
-
-
-
-
-
-              <input type="submit" value="Submit" />
             </form>
-          </div>
-        )}
 
 
 
-
-
-
-
-
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="danger" onClick={() => setModalVisible(false)}>
+              Close
+            </Button>
+            <Button onClick={addAdvitisors} variant="success">Save changes</Button>
+          </Modal.Footer>
+        </Modal>
 
 
         <div className="advertisers-lower">
 
           <div style={{ padding: 20 }} className="main-container">
-            
+
 
             <select className='form-select form-select-lg me-5 ' name="status" id="status" style={{ "cursor": "pointer" }} value={status} onChange={(e) => setStatus(e.target.value)}>
               <option style={{ "cursor": "pointer" }} value="100"> Status</option>
@@ -281,15 +236,21 @@ export default function Affiliates() {
 
           </div>
         </div>
-        <div  className="affilate-table-container">
+
+
+
+
+
+        <div className="affilate-table-container">
           <div className="affilate-table-container">
-            <table  className="table table-striped table-hover">
+            <table className="table table-striped table-hover">
               <thead className="table-primary">
                 <tr>
                   <th className="affilate-deatils-all">No.</th>
                   <th className="affilate-deatils-all">Advitisors</th>
                   <th className="affilate-deatils-all">Description</th>
                   <th className="affilate-deatils-all">Tags</th>
+                  <th className="affilate-deatils-all">Remarks</th>
                 </tr>
               </thead>
               <tbody>
@@ -300,6 +261,12 @@ export default function Affiliates() {
                       <td className="affilate-deatils-all">{item?.name}</td>
                       <td className="affilate-deatils-all">{item?.desc}</td>
                       <td className="affilate-deatils-all">10</td>
+                      <td className="affilate-deatils-all">
+                        <Button style={{ marginLeft: 20 }} variant="danger" onClick={() => deleteAdvitisor(item._id)}>
+                          Delete
+                        </Button>
+
+                      </td>
                     </tr>
                   ))}
               </tbody>
