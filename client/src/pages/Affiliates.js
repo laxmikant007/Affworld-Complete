@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import "./style/affilates.css";
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 
 
@@ -14,6 +16,11 @@ export default function Affiliates() {
   const [teammateVisible, setTeammateVisible] = useState(false);
   const [addFormVisible, setAddFormVisible] = useState(false);
   const [dropdown, setdropdown] = useState(false);
+  const [country, setCountry] = useState("100");
+  const [status, setStatus] = useState("100");
+  const [tag, setTag] = useState("100");
+  const [teammate, setTeammate] = useState("100");
+
 
   const [data, setData] = useState([]);
 
@@ -73,19 +80,19 @@ export default function Affiliates() {
 
   }
 
- 
+
 
   useEffect(() => {
     getData()
-    }, []);
+  }, []);
 
 
   return (
     <div style={{ padding: 15, marginLeft: 40 }} className='main-container-affilate'>
 
-      <div className="  advertisers">
+      <div style={{marginTop:60}}  className="  advertisers">
         <h1 className='top-name-advertiser'>Affiliates</h1>
-        <div className="advertisers-top">
+        <div  className="advertisers-top">
           <a href="#">All Affiliates</a>
           <a href="#">My Affiliates</a>
           <a href="#">Pending Affiliates</a>
@@ -95,6 +102,7 @@ export default function Affiliates() {
           <div className="add-advertiser-form">
             <form>
               <h1 className="form-title-advertiser">Add Affiliates</h1>
+              <button className="add-advertiser-btn" onClick={() => setAddFormVisible(!addFormVisible)}> Close</button>
               <label>
                 Company Name:
                 <input type="text" name="companyName" />
@@ -230,117 +238,76 @@ export default function Affiliates() {
 
         <div className="advertisers-lower">
 
-          <div className="main-container">
-            <div className="list-item">
-              <div className="item-header " onClick={handledropdown}>
-                Pending
-              </div>
-              {/*
-              {pendingVisible && (
-                <div className="sub-list">
-                  <div>Status</div>
-                  <div>Active</div>
-                  <div>Pending</div>
-                  <div>Inactive</div>
-                </div>
-              )} */}
-              <div onMouseLeave={handledropdown2} className="profile-options" id="profileOption">
-                <ul>
-                  <li>
-                    <a style={{ cursor: "pointer" }} to="/profiledetails" onClick={""} >My Profile</a>
-                  </li>
+          <div style={{ padding: 20 }} className="main-container">
+            
 
-                  <li >
-                    <Link to="/book">Booked Vehicles</Link>
-                  </li>
-                  <li>
-                    <Link to="/help">FAQ's & Help</Link>
-                  </li>
-                  <li >
-                    <Link style={{ cursor: "pointer" }} onClick={""} >Logout</Link>
-                  </li>
-                </ul>
+            <select className='form-select form-select-lg me-5 ' name="status" id="status" style={{ "cursor": "pointer" }} value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option style={{ "cursor": "pointer" }} value="100"> Status</option>
+              <option style={{ "cursor": "pointer" }} value="active"   > Active </option>
+              <option style={{ "cursor": "pointer" }} value="pending"   > Pending</option>
+              <option style={{ "cursor": "pointer" }} value="done"   > Done</option>
+              <option style={{ "cursor": "pointer" }} value="Inactive"   > Inactive</option>
+
+            </select>
+
+            <select className='form-select form-select-lg  me-5  ' name="country" id="country" style={{ "cursor": "pointer" }} value={country} onChange={(e) => setCountry(e.target.value)}>
+              <option style={{ "cursor": "pointer" }} value="100"> All Countries</option>
+              <option style={{ "cursor": "pointer" }} value="2"   > India </option>
+              <option style={{ "cursor": "pointer" }} value="5"   > USA</option>
+              <option style={{ "cursor": "pointer" }} value="50"   > Australia</option>
+              <option style={{ "cursor": "pointer" }} value="50"   > UK</option>
+
+            </select>
+
+            <select className='form-select form-select-lg  me-5 ' name="tag" id="tag" style={{ "cursor": "pointer" }} value={tag} onChange={(e) => setTag(e.target.value)}>
+              <option style={{ "cursor": "pointer" }} value="100"> All Tags</option>
+              <option style={{ "cursor": "pointer" }} value="Casino"   > Casino </option>
+              <option style={{ "cursor": "pointer" }} value="Bar"   > Bar</option>
+              <option style={{ "cursor": "pointer" }} value="Games"   > Games</option>
+              <option style={{ "cursor": "pointer" }} value="Betting"   > Betting</option>
 
 
+            </select>
 
-              </div>
-            </div>
-            <div className="list-item">
-              <div className="item-header" onClick={toggleCountry}>
-                Country
-              </div>
-              {countryVisible && (
-                <div className="sub-list">
-                  <div>India</div>
-                  <div>USA</div>
-                </div>
-              )}
-            </div>
-            <div className="list-item">
-              <div className="item-header" onClick={toggleTag}>
-                Tag
-              </div>
-              {tagVisible && (
-                <div className="sub-list">
-                  <input type="text" placeholder="Search"></input>
-                </div>
-              )}
-            </div>
-            <div className="list-item">
-              <div className="item-header" onClick={toggleTeammate}>
-                Teammate
-              </div>
-              {teammateVisible && (
-                <div className="sub-list">
-                  <input type="text" placeholder="Search"></input>
-                </div>
-              )}
-            </div>
+            <select className='form-select form-select-lg  me-5  ' name="city" id="city" style={{ "cursor": "pointer" }} value={teammate} onChange={(e) => setTeammate(e.target.value)}>
+              <option style={{ "cursor": "pointer" }} value="100"> Teammates</option>
+              <option style={{ "cursor": "pointer" }} value="Rahul"   > Rahul </option>
+              <option style={{ "cursor": "pointer" }} value="Lakshya"   > Lakshya</option>
+              <option style={{ "cursor": "pointer" }} value="Anil"   > Anil</option>
+              <option style={{ "cursor": "pointer" }} value="Sunil"   > Sunil</option>
+
+
+            </select>
 
           </div>
         </div>
-
-
-        <div className="affilate-body">
-          <div className="affilates-body-container">
-
-            <table  className='affilate-table-data'>
-              <tr>
-             
-                <td className="advertisers-body-item">Affiliates</td>
-                <td className="advertisers-body-item"> Description</td>
-                <td className="advertisers-body-item"> Tags</td>
-              </tr>
-              {
-                data?.length > 0 && data?.map((item) => (
-
-                  <>
-                
-
-                    <tr>
-                      <td className='affilate-deatils-all'>{item?.name}</td>
-                      <td className='affilate-deatils-all'>{item?.desc}</td>
-                      <td className='affilate-deatils-all'>10</td>
+        <div  className="affilate-table-container">
+          <div className="affilate-table-container">
+            <table  className="table table-striped table-hover">
+              <thead className="table-primary">
+                <tr>
+                  <th className="affilate-deatils-all">No.</th>
+                  <th className="affilate-deatils-all">Affiliates</th>
+                  <th className="affilate-deatils-all">Description</th>
+                  <th className="affilate-deatils-all">Tags</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data?.length > 0 &&
+                  data.map((item, index) => (
+                    <tr key={index}>
+                      <td className="affilate-deatils-all">{index + 1}</td>
+                      <td className="affilate-deatils-all">{item?.name}</td>
+                      <td className="affilate-deatils-all">{item?.desc}</td>
+                      <td className="affilate-deatils-all">10</td>
                     </tr>
-                  </>
-                ))
-
-
-              }
-
+                  ))}
+              </tbody>
             </table>
-
-
-
-
-
-            {/* <div className="advertisers-body-item">Teammates</div> */}
-            {/* <div className="advertisers-body-item">Registration</div> */}
-            {/* <div className="advertisers-body-item">Balance</div> */}
-            {/* <div className="advertisers-body-item">Conversions</div>  */}
           </div>
-
         </div>
+
+
 
         <div className='main-data-affilate'>
 

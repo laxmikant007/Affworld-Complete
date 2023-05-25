@@ -14,6 +14,7 @@ export default function Offers() {
   const [goalVisible, setGoalVisible] = useState(false);
   const [addFormVisible, setAddFormVisible] = useState(false);
   const [data, setData] = useState([]);
+  const [status, setStatus] = useState("100");
 
 
   const toggleStatus = () => {
@@ -74,7 +75,7 @@ export default function Offers() {
 
 
   return (
-    <div className="offers">
+    <div style={{ marginTop: 80 }} className="  advertisers">
 
       <h1 className='top-name-advertiser'>Offers</h1>
       <div className="advertisers-top">
@@ -88,6 +89,7 @@ export default function Offers() {
         <div className="add-advertiser-form">
           <form>
             <h1 className="form-title-advertiser">Add Offers</h1>
+            <button className="add-advertiser-btn" onClick={() => setAddFormVisible(!addFormVisible)}>Close</button>
             <label>
               Company Name:
               <input type="text" name="companyName" />
@@ -278,11 +280,13 @@ export default function Offers() {
 
 
       <div className="advertisers-lower">
+
+
         <div className="search-container">
-          <input type="text" placeholder="Search"></input>
+          <input style={{padding:10, fontSize:20, borderRadius:20,fontWeight:600}} type="text" placeholder="Search"></input>
         </div>
-        <div className="main-container">
-          <div className="list-item">
+        <div style={{ padding: 20 }} className="main-container">
+          {/* <div className="list-item">
             <div className="item-header" onClick={toggleStatus}>
               Status
             </div>
@@ -294,7 +298,21 @@ export default function Offers() {
                 <div>Inactive</div>
               </div>
             )}
-          </div>
+          </div> */}
+          <div className="list-item">
+          <select className='form-select form-select-lg me-5 ' name="status" id="status" style={{ "cursor": "pointer" }} value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option style={{ "cursor": "pointer" }} value="100"> Status</option>
+              <option style={{ "cursor": "pointer" }} value="active"   > Active </option>
+              <option style={{ "cursor": "pointer" }} value="pending"   > Pending</option>
+              <option style={{ "cursor": "pointer" }} value="done"   > Done</option>
+              <option style={{ "cursor": "pointer" }} value="Inactive"   > Inactive</option>
+
+            </select>
+
+           </div>
+
+
+
           <div className="list-item">
             <div className="item-header" onClick={toggleTag}>
               Availability
@@ -305,6 +323,8 @@ export default function Offers() {
               </div>
             )}
           </div>
+
+
           <div className="list-item">
             <div className="item-header" onClick={toggleTeammate}>
               Advertisers
@@ -356,74 +376,44 @@ export default function Offers() {
 
 
         </div>
-
-
-
-
-
-
       </div>
+      <div className="affilate-table-container">
+        <div className="affilate-table-container">
+          <table className="table table-striped table-hover">
+            <thead  className="table-primary">
+              <tr>
+                <th className="affilate-deatils-all">No.</th>
+                <th className="affilate-deatils-all">Campagin</th>
+                <th className="affilate-deatils-all">Description</th>
+                <th className="affilate-deatils-all">Tags</th>
+                <td className="affilate-deatils-all"> URL</td>
+                <td className="affilate-deatils-all"> code</td>
+              </tr>
+            </thead>
 
-      {/* <div className="advertisers-body">
-
-        <div className="advertisers-body-container">
-          <button className="advertisers-body-button">Status</button>
-          <button className="advertisers-body-button">Availability</button>
-          <div className="advertisers-body-item">Payout</div>
-          <div className="advertisers-body-item">Categories</div>
-          <div className="advertisers-body-item">Targeting</div>
-          <div className="advertisers-body-item">Performance</div>
-          <div className="advertisers-body-item">Conversions</div>
-        </div>
-
-      </div> */}
-
-
-      <div className="affilate-body">
-        <div className="affilates-body-container">
-
-          <table className='affilate-table-data'>
-            <tr>
-
-              <td className="advertisers-body-item">Campagin</td>
-              <td className="advertisers-body-item"> Description</td>
-              <td className="advertisers-body-item"> Tag</td>
-              <td className="advertisers-body-item"> URL</td>
-              <td className="advertisers-body-item"> code</td>
-            </tr>
-            {
-              data?.length > 0 && data?.map((item) => (
-
-                <>
-
-
-                  <tr>
-                    <td className='affilate-deatils-all'>{item?.name}</td>
-                    <td className='affilate-deatils-all'>{item?.description}</td>
-                    <td className='affilate-deatils-all'>10</td>
-                    <td  style={{fontSize:20}} className='affilate-deatils-all'>
+    
+            <tbody>
+                {data?.length > 0 &&
+                  data.map((item, index) => (
+                    <tr key={index}>
+                      <td className="affilate-deatils-all">{index + 1}</td>
+                      <td className="affilate-deatils-all">{item?.name}</td>
+                      <td className="affilate-deatils-all">{item?.description}</td>
+                      <td className="affilate-deatils-all">10</td>
+                      <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
                       <a href={item?.url} target="_blank" rel="noopener noreferrer">
-                      Link
+                        Link
                       </a>
                     </td>
-                    <td className='affilate-deatils-all'>{item?.code}</td>
-                  </tr>
-                </>
-              ))
+                    <td className="affilate-deatils-all">{item?.code}</td>
+
+                    </tr>
+                  ))}
+              </tbody>
 
 
-            }
 
           </table>
-
-
-
-
-
-          {/* <div className="advertisers-body-item">Teammates</div> */}
-          {/* <div className="advertisers-body-item">Registration</div> */}
-          {/* <div className="advertisers-body-item">Balance</div> */}
-          {/* <div className="advertisers-body-item">Conversions</div>  */}
         </div>
 
       </div>
