@@ -91,17 +91,17 @@ export default function Affiliates() {
     <div style={{ padding: 15, marginLeft: 40 }} className='main-container-affilate'>
 
       <div style={{marginTop:60}}  className="  advertisers">
-        <h1 className='top-name-advertiser'>Affiliates</h1>
+        <h1 className='top-name-advertiser'>Advitisors</h1>
         <div  className="advertisers-top">
-          <a href="#">All Affiliates</a>
-          <a href="#">My Affiliates</a>
-          <a href="#">Pending Affiliates</a>
+          <a href="#">All Advitisors</a>
+          <a href="#">My Advitisors</a>
+          <a href="#">Pending Advitisors</a>
           <button className="add-advertiser-btn" onClick={() => setAddFormVisible(!addFormVisible)}> + Add Affiliates</button>
         </div>
         {addFormVisible && (
           <div className="add-advertiser-form">
             <form>
-              <h1 className="form-title-advertiser">Add Affiliates</h1>
+              <h1 className="form-title-advertiser">Add Advitisors</h1>
               <button className="add-advertiser-btn" onClick={() => setAddFormVisible(!addFormVisible)}> Close</button>
               <label>
                 Company Name:
@@ -287,7 +287,7 @@ export default function Affiliates() {
               <thead className="table-primary">
                 <tr>
                   <th className="affilate-deatils-all">No.</th>
-                  <th className="affilate-deatils-all">Affiliates</th>
+                  <th className="affilate-deatils-all">Advitisors</th>
                   <th className="affilate-deatils-all">Description</th>
                   <th className="affilate-deatils-all">Tags</th>
                 </tr>
