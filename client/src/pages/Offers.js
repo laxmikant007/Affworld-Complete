@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import "./style/campagin.css";
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
+import Loader from '../components/Loader';
+
 
 
 
@@ -17,6 +19,8 @@ export default function Offers() {
   const [addFormVisible, setAddFormVisible] = useState(false);
   const [data, setData] = useState([]);
   const [status, setStatus] = useState("100");
+  const [loading,setLoading] = useState(false);
+
 
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -27,6 +31,7 @@ export default function Offers() {
   const [campaginUrl, setCampaginUrl] = useState("");
 
   const [advitisor_id, setAdvitisor_id] = useState("");
+
 
 
   useEffect(() => {
@@ -74,7 +79,8 @@ export default function Offers() {
       });
       result = await result.json();
       console.log("jjh", result)
-      setData(result)
+      setData(result);
+      setLoading(true);
 
     } catch (error) {
       console.log("error is-->", error)
@@ -315,7 +321,10 @@ export default function Offers() {
 
 
             <tbody>
-              {data?.length > 0 &&
+              {
+                
+                loading ? (
+                data?.length > 0 &&
                 data.map((item, index) => (
                   <tr key={index}>
                     <td className="affilate-deatils-all">{index + 1}</td>
@@ -338,7 +347,11 @@ export default function Offers() {
                     </Button></td>
 
                   </tr>
-                ))}
+                ))
+              ) : <Loader />
+                
+                
+                }
             </tbody>
 
 

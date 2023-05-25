@@ -6,6 +6,11 @@ import styled from 'styled-components';
 import "./style/affilates.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Modal, Button } from 'react-bootstrap';
+import Loader from '../components/Loader';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 
 
@@ -25,42 +30,55 @@ export default function Affiliates() {
 
   const [AdvitisorName, setAdvitisorName] = useState("");
   const [description, setDescription] = useState("");
+  const [loading,setLoading] = useState(false);
+
 
 
   const [data, setData] = useState([]);
 
-
-  const togglePending = () => {
-    setPendingVisible(!pendingVisible);
-  };
-
-  const toggleCountry = () => {
-    setCountryVisible(!countryVisible);
-  };
-
-  const toggleTag = () => {
-    setTagVisible(!tagVisible);
-  };
-
-  const toggleTeammate = () => {
-    setTeammateVisible(!teammateVisible);
-  };
-
-  function handledropdown() {
-    if (dropdown === false) {
-      document.getElementById("profileOption").style.height = "fit-content";
-      setdropdown(true);
-      // } else {
-      //     document.getElementById("profileOption").style.height = "0px";
-      //     setdropdown(false);
-      // }
-    }
+  const showNotification = () => {
+    toast.success("Advitisor Added Successfully!! ", {
+      autoClose: 2000,
+    });
   }
 
-  function handledropdown2() {
-    document.getElementById("profileOption").style.height = "0px";
-    setdropdown(false);
+  const showNotificationDelete = () => {
+    toast.success("Advitisor Removed Successfully!! ", {
+      autoClose: 2000,
+    });
   }
+
+  // const togglePending = () => {
+  //   setPendingVisible(!pendingVisible);
+  // };
+
+  // const toggleCountry = () => {
+  //   setCountryVisible(!countryVisible);
+  // };
+
+  // const toggleTag = () => {
+  //   setTagVisible(!tagVisible);
+  // };
+
+  // const toggleTeammate = () => {
+  //   setTeammateVisible(!teammateVisible);
+  // };
+
+  // function handledropdown() {
+  //   if (dropdown === false) {
+  //     document.getElementById("profileOption").style.height = "fit-content";
+  //     setdropdown(true);
+  //     // } else {
+  //     //     document.getElementById("profileOption").style.height = "0px";
+  //     //     setdropdown(false);
+  //     // }
+  //   }
+  // }
+
+  // function handledropdown2() {
+  //   document.getElementById("profileOption").style.height = "0px";
+  //   setdropdown(false);
+  // }
 
   const getData = async () => {
 
@@ -78,6 +96,7 @@ export default function Affiliates() {
       result = await result.json();
       console.log("jjh", result)
       setData(result)
+      setLoading(true);
 
     } catch (error) {
       console.log("error is-->", error)
@@ -101,6 +120,8 @@ export default function Affiliates() {
       result = await result.json();
       console.log("Addadbitisor callled", result);
       setModalVisible(false);
+
+      showNotification();
       getData();
 
     } catch (error) {
@@ -117,7 +138,7 @@ export default function Affiliates() {
       console.log("id is -->", id)
       const url = `https://affilator.onrender.com/api/advitisor/${id}`;
       console.log("url is-->", url)
- 
+      
       let result = await fetch(url, {
           method: "delete",
           headers: {
@@ -125,13 +146,14 @@ export default function Affiliates() {
               api_key: "key"  
           },
       });
-      result = await result.json()
-      getData();
-      console.log("result is-->", result)
-
-
-      if (result) {
-          console.log("Advitisor deleted Success!!")
+      // result = await result.json()
+      console.log("result is-->", result.status)
+      
+      
+      if (result.status === 204) {
+        console.log("Advitisor deleted Success!!")
+        showNotificationDelete();
+        getData();
       }
 
       
@@ -149,6 +171,9 @@ export default function Affiliates() {
 
 
   return (
+    <>
+
+    
     <div style={{ padding: 15, marginLeft: 40 }} className='main-container-affilate'>
 
       <div style={{ marginTop: 60 }} className="  advertisers">
@@ -254,7 +279,11 @@ export default function Affiliates() {
                 </tr>
               </thead>
               <tbody>
-                {data?.length > 0 &&
+
+                {
+
+                 loading?(
+                  data?.length > 0 &&
                   data.map((item, index) => (
                     <tr key={index}>
                       <td className="affilate-deatils-all">{index + 1}</td>
@@ -268,7 +297,16 @@ export default function Affiliates() {
 
                       </td>
                     </tr>
-                  ))}
+                  ))
+                  ):<Loader/>
+                  
+
+
+                  }
+
+
+                  
+
               </tbody>
             </table>
           </div>
@@ -289,7 +327,8 @@ export default function Affiliates() {
 
       </div>
     </div>
-
+    <ToastContainer />
+    </>
 
 
 
