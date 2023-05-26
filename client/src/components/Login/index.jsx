@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState  } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
+	const navigate = useNavigate();
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
@@ -16,9 +18,20 @@ const Login = () => {
 		try {
 			// const url = "http://localhost:8080/api/auth";
             const url = "https://affworld-server.onrender.com/api/auth";
-			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("token", res.data);
-			window.location = "/";
+			console.log("data is", data);
+			const res  = await axios.post(url, data);
+			// console.log("res is", res.data.user);
+			console.log("res token new update is", res.data.token);
+			localStorage.setItem("token",JSON.stringify(res.data.token));
+			localStorage.setItem("user", JSON.stringify(res.data.user));
+			// localStorage.setItem("token", JSON.stringify(res.data.auth));
+
+			if(res){
+
+				console.log("Login is successfull res is",res);
+			}
+
+			navigate("/");
 		} catch (error) {
 			if (
 				error.response &&

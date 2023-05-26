@@ -20,6 +20,7 @@ userSchema.methods.generateAuthToken = function () {
 const User = mongoose.model("user", userSchema);
 
 const validate = (data)=>{
+    console.log("backend data is  is -->", data)
     const schema = Joi.object({
         firstName:Joi.string().required().label("First Name"),
         lastName:Joi.string().required().label("Last Name"),

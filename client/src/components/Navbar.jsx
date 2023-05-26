@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { SidebarData } from "./SlidebarData";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -19,12 +21,13 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setShowbutton(true);
+    localStorage.clear();
+    console.log("logout");
+    // setShowbutton(true);
     navigate("/login");
   };
 
-  const user = localStorage.getItem("token");
+  const auth = localStorage.getItem("user");
 
   return (
     <>
@@ -35,14 +38,23 @@ export default function Navbar() {
           </Link>
 
           <div className="navbar-inner-container">
-            {showbutton ? (
-              <button type="button" className="btn btn-primary" onClick={handleClick}>
-                Logout
-              </button>
-            ) : (
-              <button type="button" className="btn btn-primary" onClick={handleLogout}>
-                Login
-              </button>
+            <Link to="/">
+              {/* <h1 className="navbar-logo">Affworld</h1> */}
+              <AccountCircleIcon  fontSize="large" style={{ color: 'white' }} />
+            </Link>
+            {
+              
+
+              auth ? <>
+
+              <span style={{  fontFamily:'sans-serif' , fontWeight: "700", fontSize: "22px", color:'white' }}> ({JSON.parse(auth).firstName.split(" ")[0]}) &nbsp;</span>
+
+              <button type="button" className="btn btn-primary" onClick={handleLogout}>Logout</button>
+
+              </>
+
+             : (
+              <button type="button" className="btn btn-primary" onClick={handleClick}>Login </button>
             )}
           </div>
         </div>

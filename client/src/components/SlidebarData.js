@@ -24,8 +24,8 @@ export const SidebarData = [
     cName: "nav-text"
   },
   {
-    title: "Affiliates",
-    path: "/affiliates",
+    title: "Advitisors",
+    path: "/advitisors",
     icon: <IoIcons.IoMdPeople />,
     cName: "nav-text"
   },
@@ -41,30 +41,30 @@ export const SidebarData = [
     icon: <IoIcons.IoMdHelpCircle />,
     cName: "nav-text"
   },
-  {
-    title: "Transactions",
-    path: "/support",
-    icon: <IoIcons.IoMdHelpCircle />,
-    cName: "nav-text"
-  },
-  {
-    title: "Affiliate Billing",
-    path: "/support",
-    icon: <IoIcons.IoMdHelpCircle />,
-    cName: "nav-text"
-  },
-  {
-    title: "Outbound",
-    path: "/support",
-    icon: <IoIcons.IoMdHelpCircle />,
-    cName: "nav-text"
-  },
-  {
-    title: "Activity Log",
-    path: "/support",
-    icon: <IoIcons.IoMdHelpCircle />,
-    cName: "nav-text"
-  },
+  // {
+  //   title: "Transactions",
+  //   path: "/support",
+  //   icon: <IoIcons.IoMdHelpCircle />,
+  //   cName: "nav-text"
+  // },
+  // {
+  //   title: "Affiliate Billing",
+  //   path: "/support",
+  //   icon: <IoIcons.IoMdHelpCircle />,
+  //   cName: "nav-text"
+  // },
+  // {
+  //   title: "Outbound",
+  //   path: "/support",
+  //   icon: <IoIcons.IoMdHelpCircle />,
+  //   cName: "nav-text"
+  // },
+  // {
+  //   title: "Activity Log",
+  //   path: "/support",
+  //   icon: <IoIcons.IoMdHelpCircle />,
+  //   cName: "nav-text"
+  // },
   {
     title: "Settings",
     path: "/support",

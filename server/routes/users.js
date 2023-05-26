@@ -4,10 +4,12 @@ const bcrypt = require('bcrypt');
 
 router.get("/", async(req, res)=>{
 
-    res.send("All Affworld users working...")    
+    res.send("All Affworld users  8080 80 80working...")    
 })
 
 router.post("/", async(req, res)=>{
+
+        console.log("req.body is -->", req.body)
 
     try {
         const {error} = validate(req.body);
@@ -19,10 +21,14 @@ router.post("/", async(req, res)=>{
             return res.status(409).send({message:"User Already Existed!!"})
 
         const salt =await bcrypt.genSalt(Number(process.env.SALT))
-        const hashPassword= await bcrypt.hash(req.body.password, salt);
+        const hashPassword= await bcrypt.hash(req.body.password, 10);
 
-        await new User({...req.body , password:hashPassword}).save();
-        res.status(201).send({message:"User Created Successfully!!"})
+
+
+        
+        const newuser = await new User({...req.body , password:hashPassword}).save();
+        console.log("newuser is -->", newuser)
+        res.status(201).send({newuser, message:"User Created Successfully!!"})
 
         
     } catch (error) {

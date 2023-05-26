@@ -4,13 +4,14 @@ const Joi = require("joi");
 const bcrypt = require('bcrypt');
 
 
-router.get("/", async(req, res)=>{
+// router.get("/", async(req, res)=>{
 
-    res.send("All Affworld auth users working...")    
-})
+//     res.send("All Affworld auth users working...")    
+// })
 
 router.post("/", async(req,res)=>{
 
+    console.log("req.body is -->", req.body)
     try {
         const {error} = validate(req.body);
         if(error)
@@ -23,11 +24,15 @@ router.post("/", async(req,res)=>{
         const validPassword = await bcrypt.compare(
             req.body.password , user.password
         )
+
         if(!validPassword)
              return res.status(401).send({message:"Invalid Email or Password!!"});
 
          const token = user.generateAuthToken();
-         res.status(200).send({ data:token ,message:"Logged In Successfully!!"})
+            //res.send(token);
+            console.log("token is -->", token)
+         console.log("user is -->", user)
+         res.status(200).send({user, token:token ,message:"Logged In Successfully!!"})
 
         
     } catch (error) {

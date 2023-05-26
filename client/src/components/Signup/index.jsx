@@ -19,12 +19,23 @@ const Signup = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+         console.log("data is",data);
+
 		try {
 			// const url = "http://localhost:8080/api/users";
             const url = "https://affworld-server.onrender.com/api/users";
 			const { data: res } = await axios.post(url, data);
 			navigate("/login");
+			console.log("res is", res);
+			console.log("new user is", res.newuser.firstName);
+			const d={
+				firstName:res.newuser.firstName,
+				lastName:res.newuser.lastName,
+			}
+
 			console.log(res.message);
+			localStorage.setItem("user",JSON.stringify(d));
+			localStorage.setItem("token",JSON.stringify(res.token));
 		} catch (error) {
 			if (
 				error.response &&

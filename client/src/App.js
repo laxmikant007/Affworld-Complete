@@ -15,7 +15,7 @@ import Reports from "./pages/Reports";
 import Register from "./pages/Register";
 import Advertisers from "./pages/Advertisers";
 import Offers from "./pages/Offers";
-import Affiliates from "./pages/Affiliates";
+import Advitisors from "./pages/Advitisors";
 
  function App() {
    const user = localStorage.getItem("token");
@@ -34,7 +34,7 @@ import Affiliates from "./pages/Affiliates";
           <Route path="/register" element={<Register/>} />
           <Route path="/advertisers" element={<Advertisers/>} />
           <Route path="/offers" element={<Offers/>} />
-          <Route path="/affiliates" element={<Affiliates/>} />
+          <Route path="/advitisors" element={<Advitisors/>} />
           <Route path="/products" element={<Products/>} />
           <Route path="/reports" element={<Reports/>} />
           </Routes>

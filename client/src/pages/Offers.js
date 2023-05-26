@@ -4,6 +4,8 @@ import "./style/campagin.css";
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import Loader from '../components/Loader';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -64,6 +66,18 @@ export default function Offers() {
     setGoalVisible(!goalVisible);
   };
 
+  const showNotification = () => {
+    toast.success("Campagin Added Successfully!! ", {
+      autoClose: 2000,
+    });
+  }
+
+  const showNotificationDelete = () => {
+    toast.success("Campagin Removed Successfully!! ", {
+      autoClose: 2000,
+    });
+  }
+
   const getData = async () => {
 
 
@@ -114,6 +128,7 @@ export default function Offers() {
       result = await result.json();
       console.log("Campagin callled", result);
       setModalVisible(false);
+      showNotification();
       getData();
     } catch (error) {
       console.log("error is while post-->", error)
@@ -139,6 +154,7 @@ export default function Offers() {
         result = await result.json()
         console.log("result is-->", result)
         if (result) {
+            showNotificationDelete();
             console.log("user deleted Success!!")
             getData();
         }
@@ -163,6 +179,8 @@ export default function Offers() {
 
 
   return (
+    <>
+
     <div style={{ marginTop: 80 }} className="  advertisers">
 
       <h1 className='top-name-advertiser'>Offers</h1>
@@ -330,7 +348,7 @@ export default function Offers() {
                     <td className="affilate-deatils-all">{index + 1}</td>
                     {/* <td className="affilate-deatils-all">{item?.advitisor_id}</td> */}
                     <td className="affilate-deatils-all">{item?.name}</td>
-                    <td className="affilate-deatils-all">{item?.description}</td>
+                    <td className="affilate-deatils-description">{item?.description}</td>
                     <td className="affilate-deatils-all">10</td>
                     <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
                       <a href={item?.url} target="_blank" rel="noopener noreferrer">
@@ -364,8 +382,8 @@ export default function Offers() {
 
 
     </div>
-
-
+      <ToastContainer />
+    </>
 
   )
 }
