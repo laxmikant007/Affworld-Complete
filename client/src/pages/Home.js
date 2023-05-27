@@ -1,36 +1,57 @@
 import React from "react";
 import styled from "styled-components";
-import hero from "../Images/homesc.gif"
+import hero from "../Images/homesc.gif";
+import { motion ,useSpring  } from "framer-motion";
 
 
 export default function Home() {
+
+  const { x } = useSpring({
+    from: { x: 0 },
+    to: { x: 100 },
+    config: { duration: 4000 },
+    reset: true,
+    loop: Infinity,
+  });
+
   return (
     <Wrapper>
-    <div className="container-hero">
-          <h1 style={{fontFamily:"revert-layer" , fontweight:"1000" , fontSize:"50px"}}> Affworld Technologies </h1>
-      <div className="sub-container-hero">
-        {/* <div className="hero-section-data"> */}
-         
-          <p style={{fontWeight:"500"}} className="intro-crew">
-          Welcome  
-          <span style={{fontWeight:"700"}}>{JSON.parse(localStorage.getItem("user"))?.firstName.split(" ")[0]}&nbsp;!!</span> &nbsp;
-          to <b> Affworld </b> , where we make it easy and affordable to get the help you need for your projects! Affworld is affiliate network platform that focus on growing sales and growth for Advertisers.😁😁
-          </p>
+      <div className="container-hero">
+        <h1 style={{ fontFamily: "revert-layer", fontweight: "1000", fontSize: "50px" }}> Affworld Technologies </h1>
+        <div className="sub-container-hero">
+          {/* <div className="hero-section-data"> */}
+          {/* <div style={{display:'flex',justifyContent:'center', alignItems:'center' }}> */}
+          <motion.div 
+           
+            // animate={{ x: 50 }}
+            // transition={{ ease: "easeOut", duration: 2 }} 
+            animate={{ x: [0, 100, 0] }}
+            // transition={{ease: "linear", duration: 2, x: { duration: 4 }}}
+            
+             >
+
+            <p style={{ fontWeight: "500" }} className="intro-crew">
+              Welcome
+              <span style={{ fontWeight: "700" }}>{JSON.parse(localStorage.getItem("user"))?.firstName.split(" ")[0]}&nbsp;!!</span> &nbsp;
+              to <b> Affworld </b> , where we make it easy and affordable to get the help you need for your projects! Affworld is affiliate network platform that focus on growing sales and growth for Advertisers.😁😁
+            </p>
+
+          </motion.div>
           <div className="hero-section-image">
-          {/* <figure> */}
+            {/* <figure> */}
             <img
               src={hero}
               alt="hero-section-photo"
               className="img-style"
             />
-          {/* </figure> */}
+            {/* </figure> */}
+          </div>
+          {/* </div> */}
+
+
         </div>
-        {/* </div> */}
-      
-        
       </div>
-    </div>
-  </Wrapper>
+    </Wrapper>
   );
 }
 
@@ -128,5 +149,5 @@ figure {
 
 
 `;
- 
+
 

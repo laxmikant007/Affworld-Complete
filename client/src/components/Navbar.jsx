@@ -9,10 +9,12 @@ import { useNavigate } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
+
+
 export default function Navbar() {
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
-  const [showbutton  , setShowbutton] = useState(false);
+  const [showbutton, setShowbutton] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -22,7 +24,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.clear();
-    console.log("logout");
+    // console.log("logout");
     // setShowbutton(true);
     navigate("/login");
   };
@@ -40,22 +42,24 @@ export default function Navbar() {
           <div className="navbar-inner-container">
             <Link to="/">
               {/* <h1 className="navbar-logo">Affworld</h1> */}
-              <AccountCircleIcon  fontSize="large" style={{ color: 'white' }} />
+              <AccountCircleIcon fontSize="large" style={{ color: 'white' }} />
+              {/* <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" /> */}
+              {/* <Button style={{marginRight:20 ,marginLeft:20}} variant="contained" color="success">Success</Button> */}
             </Link>
             {
-              
+
 
               auth ? <>
 
-              <span style={{  fontFamily:'sans-serif' , fontWeight: "700", fontSize: "22px", color:'white' }}> ({JSON.parse(auth).firstName.split(" ")[0]}) &nbsp;</span>
+                <span style={{ fontFamily: 'sans-serif', fontWeight: "700", fontSize: "22px", color: 'white' }}> ({JSON.parse(auth).firstName.split(" ")[0]}) &nbsp;</span>
 
-              <button type="button" className="btn btn-primary" onClick={handleLogout}>Logout</button>
+                <button type="button" className="btn btn-primary" onClick={handleLogout}>Logout</button>
 
               </>
 
-             : (
-              <button type="button" className="btn btn-primary" onClick={handleClick}>Login </button>
-            )}
+                : (
+                  <button type="button" className="btn btn-primary" onClick={handleClick}>Login </button>
+                )}
           </div>
         </div>
 
