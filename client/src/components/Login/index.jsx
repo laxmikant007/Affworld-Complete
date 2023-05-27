@@ -18,17 +18,17 @@ const Login = () => {
 		try {
 			// const url = "http://localhost:8080/api/auth";
             const url = "https://affworld-server.onrender.com/api/auth";
-			console.log("data is", data);
+			// console.log("data is", data);
 			const res  = await axios.post(url, data);
 			// console.log("res is", res.data.user);
-			console.log("res token new update is", res.data.token);
+			// console.log("res token new update is", res.data.token);
 			localStorage.setItem("token",JSON.stringify(res.data.token));
 			localStorage.setItem("user", JSON.stringify(res.data.user));
 			// localStorage.setItem("token", JSON.stringify(res.data.auth));
 
 			if(res){
 
-				console.log("Login is successfull res is",res);
+				console.log("Logged in  successfull ");
 			}
 
 			navigate("/");

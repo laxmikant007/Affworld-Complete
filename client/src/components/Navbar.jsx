@@ -24,7 +24,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.clear();
-    console.log("logout");
+    // console.log("logout");
     // setShowbutton(true);
     navigate("/login");
   };
