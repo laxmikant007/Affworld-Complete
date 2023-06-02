@@ -1,0 +1,18 @@
+.err-height
+{
+    /* height: 80vh; */
+}
+
+.erorr-main-page{
+    /* border: 2px solid red; */
+    /* height: 80vh; */
+}
+
+.main-error{
+    /* border: 2px solid red; */
+    margin-top: 50px;
+    height: 90vh;
+    z-index: -10;
+    max-width: fit-content;
+    margin: auto;
+}

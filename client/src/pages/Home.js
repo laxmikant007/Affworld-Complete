@@ -25,7 +25,8 @@ export default function Home() {
            
             // animate={{ x: 50 }}
             // transition={{ ease: "easeOut", duration: 2 }} 
-            animate={{ x: [0, 100, 0] }}
+            // animate={{ x: [0, 100, 0] }}
+            initial={{y:-1000}} animate={{y:0}} transition={{duration:1, type:'spring'}}
             // transition={{ease: "linear", duration: 2, x: { duration: 4 }}}
             
              >
@@ -37,7 +38,10 @@ export default function Home() {
             </p>
 
           </motion.div>
-          <div className="hero-section-image">
+          <motion.div
+            initial={{y:+1000}} animate={{y:0}} transition={{duration:1, type:'spring'}}
+          
+           className="hero-section-image">
             {/* <figure> */}
             <img
               src={hero}
@@ -45,7 +49,7 @@ export default function Home() {
               className="img-style"
             />
             {/* </figure> */}
-          </div>
+          </motion.div>
           {/* </div> */}
 
 

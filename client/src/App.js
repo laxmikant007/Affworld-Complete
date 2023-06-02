@@ -16,6 +16,7 @@ import Register from "./pages/Register";
 import Advertisers from "./pages/Advertisers";
 import Offers from "./pages/Offers";
 import Advitisors from "./pages/Advitisors";
+import ErrorPage from "./pages/ErrorPage";
 
  function App() {
    const user = localStorage.getItem("token");
@@ -37,6 +38,8 @@ import Advitisors from "./pages/Advitisors";
           <Route path="/advitisors" element={<Advitisors/>} />
           <Route path="/products" element={<Products/>} />
           <Route path="/reports" element={<Reports/>} />
+          <Route path="*" element={<ErrorPage/>} />
+
           </Routes>
         </BrowserRouter>
  
