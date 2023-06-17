@@ -33,7 +33,7 @@ export default function Home() {
 
             <p style={{ fontWeight: "500" }} className="intro-crew">
               Welcome
-              <span style={{ fontWeight: "700" }}>{JSON.parse(localStorage.getItem("user"))?.firstName.split(" ")[0]}&nbsp;!!</span> &nbsp;
+              <span style={{ fontWeight: "700" }}>{JSON.parse(localStorage.getItem("user"))?.firstName?.split(" ")[0]}&nbsp;!!</span> &nbsp;
               to <b> Affworld </b> , where we make it easy and affordable to get the help you need for your projects! Affworld is affiliate network platform that focus on growing sales and growth for Advertisers.😁😁
             </p>
 

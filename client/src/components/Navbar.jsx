@@ -51,7 +51,7 @@ export default function Navbar() {
 
               auth ? <>
 
-                <span style={{ fontFamily: 'sans-serif', fontWeight: "700", fontSize: "22px", color: 'white' }}> ({JSON.parse(auth).firstName.split(" ")[0]}) &nbsp;</span>
+                <span style={{ fontFamily: 'sans-serif', fontWeight: "700", fontSize: "22px", color: 'white' }}> ({JSON.parse(auth).firstName?.split(" ")[0]}) &nbsp;</span>
 
                 <button type="button" className="btn btn-primary" onClick={handleLogout}>Logout</button>
 

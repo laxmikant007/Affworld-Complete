@@ -1,12 +1,12 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React , { useState, useEffect } from 'react';
 import "./style/campagin.css";
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import Loader from '../components/Loader';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
+import axios from 'axios';
+import { addCampagin, deleteCampagin, getData } from '../service/api';
 
 
 
@@ -37,7 +37,7 @@ export default function Offers() {
 
 
   useEffect(() => {
-    getData()
+    fetchData();
   }, []);
 
 
@@ -78,58 +78,34 @@ export default function Offers() {
     });
   }
 
-  const getData = async () => {
-
-
+  const fetchData = async () => {
     try {
-      const url = "https://affilator.onrender.com/campaign/";
-
-      let result = await fetch(url, {
-        method: "get",
-        headers: {
-          'Content-Type': 'application/json',
-          'api_key': 'key'
-        }
-      });
-      result = await result.json();
-      console.log("jjh", result)
+      const result = await getData();
       setData(result);
       setLoading(true);
-
     } catch (error) {
-      console.log("error is-->", error)
+      console.log('error is-->', error);
     }
-
   };
 
 
-  const addCampagin = async () => {
+  const addToCampagin = async () => {
 
     try {
-      const url = "https://affilator.onrender.com/campaign/";
-      console.log("data is-->", description, campaginName, campaginUrl, advitisor_id)
-      let result = await fetch(url, {
-        method: "post",
-        headers: {
-          'Content-Type': 'application/json',
-          'api_key': 'key'
-        },
-        body: JSON.stringify({
-          advitisor_id: advitisor_id,
-          name: campaginName,
-          description: description,
-          url: campaginUrl,
-          macros: [
+      const data = {
+        advitisor_id: advitisor_id,
+        name: campaginName,
+        description: description,
+        url: campaginUrl,
+        macros: [
 
-          ]
+        ]
 
-        }),
-      });
-      result = await result.json();
-      console.log("Campagin callled", result);
+      }
+      const result = await addCampagin(data);
       setModalVisible(false);
       showNotification();
-      getData();
+      fetchData();
     } catch (error) {
       console.log("error is while post-->", error)
     }
@@ -137,41 +113,20 @@ export default function Offers() {
   }
 
 
-  const deleteCampagin = async (id) => {
+  const deleteOfferCampagin = async (id) => {
 
     
       try {
         console.log("id is -->", id)
-        const url = `https://affilator.onrender.com/campaign/${id}`;
-   
-        let result = await fetch(url, {
-            method: "delete",
-            headers: {
-                'Content-Type': 'application/json',
-                api_key: "key"  
-            },
-        });
-        result = await result.json()
-        console.log("result is-->", result)
+       const result = await deleteCampagin(id)
         if (result) {
             showNotificationDelete();
             console.log("user deleted Success!!")
-            getData();
+            fetchData();
         }
       } catch (error) {
           console.log("error is while deleteing-->", error)
       }
-
-
-
-
-
-
-  
-
-
-
-
   }
 
 
@@ -234,7 +189,7 @@ export default function Offers() {
           <Button variant="danger" onClick={() => setModalVisible(false)}>
             Close
           </Button>
-          <Button onClick={addCampagin} variant="success">Save changes</Button>
+          <Button onClick={addToCampagin} variant="success">Save changes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -360,7 +315,7 @@ export default function Offers() {
 
                     <td >                    
                 
-                    <Button style={{marginLeft:20}} variant="danger" onClick={()=>deleteCampagin(item._id)}>
+                    <Button style={{marginLeft:20}} variant="danger" onClick={()=>deleteOfferCampagin(item._id)}>
                       Delete
                     </Button></td>
 

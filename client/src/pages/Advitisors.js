@@ -9,6 +9,7 @@ import { Modal, Button } from 'react-bootstrap';
 import Loader from '../components/Loader';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { addNewAdvitisors, deleteAdvitisorsData, fetchAdvitisors } from '../service/api';
 
 
 
@@ -50,53 +51,10 @@ export default function Advitisors() {
     });
   }
 
-  // const togglePending = () => {
-  //   setPendingVisible(!pendingVisible);
-  // };
-
-  // const toggleCountry = () => {
-  //   setCountryVisible(!countryVisible);
-  // };
-
-  // const toggleTag = () => {
-  //   setTagVisible(!tagVisible);
-  // };
-
-  // const toggleTeammate = () => {
-  //   setTeammateVisible(!teammateVisible);
-  // };
-
-  // function handledropdown() {
-  //   if (dropdown === false) {
-  //     document.getElementById("profileOption").style.height = "fit-content";
-  //     setdropdown(true);
-  //     // } else {
-  //     //     document.getElementById("profileOption").style.height = "0px";
-  //     //     setdropdown(false);
-  //     // }
-  //   }
-  // }
-
-  // function handledropdown2() {
-  //   document.getElementById("profileOption").style.height = "0px";
-  //   setdropdown(false);
-  // }
 
   const getData = async () => {
-
-
     try {
-      const url = "https://affilator.onrender.com/api/advitisor/";
-
-      let result = await fetch(url, {
-        method: "get",
-        headers: {
-          'Content-Type': 'application/json',
-          'api_key': 'key'
-        }
-      });
-      result = await result.json();
-      console.log("jjh", result)
+      const result =  await fetchAdvitisors();
       setData(result)
       setLoading(true);
 
@@ -109,20 +67,13 @@ export default function Advitisors() {
   const addAdvitisors = async () => {
 
     try {
-      const url = "https://affilator.onrender.com/api/advitisor/";
-      console.log("data is-->", description, AdvitisorName)
-      let result = await fetch(url, {
-        method: "post",
-        headers: {
-          'Content-Type': 'application/json',
-          'api_key': 'key'
-        },
-        body: JSON.stringify({ name: AdvitisorName, desc: description }),
-      });
-      result = await result.json();
-      console.log("Addadbitisor callled", result);
+      const data = {
+          name: AdvitisorName, 
+          desc: description 
+      }
+      const result = await addNewAdvitisors(data);
+      // console.log("Addadbitisor callled", result);
       setModalVisible(false);
-
       showNotification();
       getData();
 
@@ -138,21 +89,22 @@ export default function Advitisors() {
   
     try {
       console.log("id is -->", id)
-      const url = `https://affilator.onrender.com/api/advitisor/${id}`;
-      console.log("url is-->", url)
+      // const url = `https://affilator.onrender.com/api/advitisor/${id}`;
+      // console.log("url is-->", url)
       
-      let result = await fetch(url, {
-          method: "delete",
-          headers: {
-              'Content-Type': 'application/json',
-              api_key: "key"  
-          },
-      });
-      // result = await result.json()
-      console.log("result is-->", result.status)
-      
-      
-      if (result.status === 204) {
+      // let result = await fetch(url, {
+      //     method: "delete",
+      //     headers: {
+      //         'Content-Type': 'application/json',
+      //         api_key: "key"  
+      //     },
+      // });
+      // // result = await result.json()
+      const result = await deleteAdvitisorsData(id);
+      // console.log("result of deleting is ", result)
+      // console.log("result is-->", result)
+  
+      if (result === 204) {
         console.log("Advitisor deleted Success!!")
         showNotificationDelete();
         getData();
