@@ -277,6 +277,8 @@ export default function Offers() {
 
         </div>
       </div>
+
+      
       <div className="affilate-table-container">
         <div className="affilate-table-container">
           <table className="table table-striped table-hover">

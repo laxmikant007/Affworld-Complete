@@ -3,6 +3,7 @@ import React from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
+import { MdManageAccounts as manager } from "react-icons/io";
 
 export const SidebarData = [
   {
@@ -33,6 +34,7 @@ export const SidebarData = [
     title: "Offers",
     path: "/offers",
     icon: <FaIcons.FaEnvelopeOpenText />,
+    
     cName: "nav-text"
   },
   {
@@ -41,12 +43,12 @@ export const SidebarData = [
     icon: <IoIcons.IoMdHelpCircle />,
     cName: "nav-text"
   },
-  // {
-  //   title: "Transactions",
-  //   path: "/support",
-  //   icon: <IoIcons.IoMdHelpCircle />,
-  //   cName: "nav-text"
-  // },
+  {
+    title: "Transactions",
+    path: "/support",
+    icon: <manager />,
+    cName: "nav-text"
+  },
   // {
   //   title: "Affiliate Billing",
   //   path: "/support",
