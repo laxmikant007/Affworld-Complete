@@ -22,7 +22,7 @@
 }
 
 /* Media queries for small devices */
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .search-container {
     flex-direction: column;
   }
@@ -31,18 +31,18 @@
     width: 100%;
     margin-bottom: 0.5rem;
   }
-}
+} */
 
 /* Media queries for medium devices */
-@media (min-width: 576px) and (max-width: 992px) {
+/* @media (min-width: 576px) and (max-width: 992px) {
   .search-container input[type="text"] {
     width: 70%;
   }
-}
+} */
 
 /* Media queries for large devices */
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
   .search-container input[type="text"] {
     width: 50%;
   }
-}
+} */

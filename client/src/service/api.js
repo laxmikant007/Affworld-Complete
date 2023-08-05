@@ -4,7 +4,9 @@ import axios from 'axios'
 const URL = "https://affilator.onrender.com"
 // const URL = "process.env.REACT_APP_BASE_URL;"
 
-const KEY = process.env.REACT_APP_API_KEY;
+// const KEY = process.env.REACT_APP_API_KEY;
+const KEY = "key";
+
 
 
 //All are Offer/Campagin Section 

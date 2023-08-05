@@ -2,9 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import hero from "../Images/homesc.gif";
 import { motion ,useSpring  } from "framer-motion";
+import Layout from "../components/Layout/Layout";
+import { Button, Text, Box, SimpleGrid } from "@chakra-ui/react";
+import { getUserFromLocalStorage } from "../utils/localstorage";
+
 
 
 export default function Home() {
+  const user = getUserFromLocalStorage();
 
   const { x } = useSpring({
     from: { x: 0 },
@@ -14,48 +19,62 @@ export default function Home() {
     loop: Infinity,
   });
 
-  return (
-    <Wrapper>
-      <div className="container-hero">
-        <h1 style={{ fontFamily: "revert-layer", fontweight: "1000", fontSize: "50px" }}> Affworld Technologies </h1>
-        <div className="sub-container-hero">
-          {/* <div className="hero-section-data"> */}
-          {/* <div style={{display:'flex',justifyContent:'center', alignItems:'center' }}> */}
-          <motion.div 
-           
-            // animate={{ x: 50 }}
-            // transition={{ ease: "easeOut", duration: 2 }} 
-            // animate={{ x: [0, 100, 0] }}
-            initial={{y:-1000}} animate={{y:0}} transition={{duration:1, type:'spring'}}
-            // transition={{ease: "linear", duration: 2, x: { duration: 4 }}}
-            
-             >
+  
+  const boxstyle = {
+    bgGradient: "linear(to-l, #7928CA, #FF0080)",
+    bgClip: "text",
+    fontSize: "4xl",
+    fontWeight: "extrabold"
+  }
 
-            <p style={{ fontWeight: "500" }} className="intro-crew">
+  return (
+    <Layout>
+    <Text alignitems="center" display="flex" justifyContent="center" fontSize="4xl" sx={boxstyle}  >
+        Affworld Technologies
+      </Text>
+
+      {/* <Box alignitems="center" display="flex" justifyContent="center">
+
+        <Button ml={10} mr={10} colorScheme="purple" onClick={handleClick}> Offers</Button>
+        <Button colorScheme="purple" onClick={ClickConversion}> Clicks & Conversion</Button>
+      </Box> */}
+
+      <SimpleGrid p={10} minChildWidth={300} spacing={5} >
+        <Box display={"flex"} alignItems={"center"} bg={"gray.100"} braderRadius="20px" width="fit-content">
+          <motion.div initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 1, type: 'spring' }}>
+            <Text fontSize="2xl" fontWeight="bold" padding="30px"  >
               Welcome
-              <span style={{ fontWeight: "700" }}>{JSON.parse(localStorage.getItem("user"))?.firstName?.split(" ")[0]}&nbsp;!!</span> &nbsp;
-              to <b> Affworld </b> , where we make it easy and affordable to get the help you need for your projects! Affworld is affiliate network platform that focus on growing sales and growth for Advertisers.😁😁
-            </p>
+              &nbsp;<span style={{ fontWeight: "700" }}>
+
+                {user?.firstName}
+
+
+              </span> &nbsp;
+              to <b> Affworld </b> , An Ecommerce platform and Affiliate
+              market palace that delivers High
+              performance on web & mobile To
+              worldwide Adervitsers.😁😁
+            </Text>
 
           </motion.div>
+        </Box>
+        <Box>
           <motion.div
-            initial={{y:+1000}} animate={{y:0}} transition={{duration:1, type:'spring'}}
-          
-           className="hero-section-image">
-            {/* <figure> */}
+            initial={{ y: +1000 }} animate={{ y: 0 }} transition={{ duration: 1, type: 'spring' }}
+
+            className="hero-section-image">
+
             <img
               src={hero}
               alt="hero-section-photo"
               className="img-style"
             />
-            {/* </figure> */}
+
           </motion.div>
-          {/* </div> */}
+        </Box>
 
-
-        </div>
-      </div>
-    </Wrapper>
+      </SimpleGrid>
+    </Layout>
   );
 }
 

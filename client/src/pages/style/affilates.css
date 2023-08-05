@@ -62,7 +62,7 @@
 }
 
 /* Media Queries for Small Screens */
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .affilates-body-container {
     margin-left: 20px;
     align-items: flex-start;
@@ -83,9 +83,9 @@
   .affilate-table-data {
     width: 100%;
   }
-}
+} */
 
-/* Media Queries for Medium Screens */
+/* 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .affilates-body-container {
     margin-left: 50px;
@@ -105,7 +105,7 @@
   }
 }
 
-/* Media Queries for Large Screens */
+
 @media screen and (min-width: 1025px) {
   .affilates-body-container {
     margin-left: 100px;
@@ -122,4 +122,4 @@
   .affilate-table-data {
     width: 50rem;
   }
-}
+} */

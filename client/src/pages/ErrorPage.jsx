@@ -2,10 +2,11 @@ import React, { useEffect, useRef } from "react";
 import "./style/ErrorPage.css";
 // import notFound from "../../images/404.png";
 import lottie from "lottie-web"
+import Layout from "../components/Layout/Layout";
 
 
-export default function ErrorPage () {
-  
+export default function ErrorPage() {
+
   const imgContainer = useRef(null)
 
   useEffect(() => {
@@ -27,8 +28,10 @@ export default function ErrorPage () {
 
   return (
     // <div className="text-center mx-auto w-input err-height pt-5 d-flex align-items-center justify-content-center">
-        <div className="erorr-main-page">
+    <Layout>
+    <div className="erorr-main-page">
       <div ref={imgContainer} className="main-error" ></div>
     </div>
+    </Layout>
   );
 }

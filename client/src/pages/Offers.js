@@ -1,16 +1,20 @@
-import React , { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./style/campagin.css";
 import { Link } from 'react-router-dom';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+import { Box, Button, Text } from '@chakra-ui/react';
 import Loader from '../components/Loader';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { addCampagin, deleteCampagin, getData } from '../service/api';
+import Layout from '../components/Layout/Layout';
+import { getUserFromLocalStorage } from '../utils/localstorage';
 
 
 
 export default function Offers() {
+  const user = getUserFromLocalStorage();
 
   const [statusVisible, setstatusVisible] = useState(false);
   const [tagVisible, setTagVisible] = useState(false);
@@ -21,7 +25,7 @@ export default function Offers() {
   const [addFormVisible, setAddFormVisible] = useState(false);
   const [data, setData] = useState([]);
   const [status, setStatus] = useState("100");
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
 
@@ -97,12 +101,11 @@ export default function Offers() {
         name: campaginName,
         description: description,
         url: campaginUrl,
-        macros: [
 
-        ]
 
       }
       const result = await addCampagin(data);
+      console.log("Thid is result --->", result);
       setModalVisible(false);
       showNotification();
       fetchData();
@@ -115,39 +118,46 @@ export default function Offers() {
 
   const deleteOfferCampagin = async (id) => {
 
-    
-      try {
-        console.log("id is -->", id)
-       const result = await deleteCampagin(id)
-        if (result) {
-            showNotificationDelete();
-            console.log("user deleted Success!!")
-            fetchData();
-        }
-      } catch (error) {
-          console.log("error is while deleteing-->", error)
+
+    try {
+      console.log("id is -->", id)
+      const result = await deleteCampagin(id)
+      if (result) {
+        showNotificationDelete();
+        console.log("user deleted Success!!")
+        fetchData();
       }
+    } catch (error) {
+      console.log("error is while deleteing-->", error)
+    }
+  }
+
+  //   <Button colorScheme='orange' onClick={() => setModalVisible(true)}>
+  //   + Add Campagin
+  // </Button>
+  const boxstyle = {
+    bgGradient: "linear(to-l, #7928CA, #FF0080)",
+    bgClip: "text",
+    fontSize: "4xl",
+    fontWeight: "extrabold"
   }
 
 
 
-
-
   return (
-    <>
+    <Layout>
 
-    <div style={{ marginTop: 80 }} className="  advertisers">
+      <Box p={3} display={"flex"} flexDirection={"row"} >
 
-      <h1 className='top-name-advertiser'>Offers</h1>
-      <div className="advertisers-top">
-        <a href="#">All Offers</a>
-        <a href="#">Featured Offers</a>
-        <a href="#">Offers Requests</a>
-        <a href="#">Smart Links</a>
-        <Button variant="primary" onClick={() => setModalVisible(true)}>
+
+        <Text mr={"auto"} alignitems="center" display="flex" justifyContent="center" fontSize="4xl" sx={boxstyle}  >
+          Offers Section
+        </Text>
+        <Button colorScheme='orange' onClick={() => setModalVisible(true)}>
           + Add Campagin
         </Button>
-      </div>
+
+      </Box>
 
       <Modal show={modalVisible} onHide={() => setModalVisible(false)}>
         <Modal.Header closeButton>
@@ -156,7 +166,7 @@ export default function Offers() {
         <Modal.Body>
           <form>
             <label>
-              Advitisor Name:
+              Campagin Name:
               <input type="text" name="campaginName" onChange={(e) => setCampaginName(e.target.value)} />
             </label>
             <label>
@@ -173,10 +183,9 @@ export default function Offers() {
 
             <label>
 
-              advitisor_id:
-              <input type="text" name="setAdvitisor_id" onChange={(e) => setAdvitisor_id(e.target.value)} />
+              Advitisor ID:
+              <input type="text" name="campaginUrl" onChange={(e) => setAdvitisor_id(e.target.value)} />
             </label>
-
 
 
 
@@ -186,161 +195,190 @@ export default function Offers() {
 
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={() => setModalVisible(false)}>
+          <Button colorScheme='red' onClick={() => setModalVisible(false)}>
             Close
           </Button>
-          <Button onClick={addToCampagin} variant="success">Save changes</Button>
+          <Button onClick={addToCampagin} colorScheme='whatsapp'>Save changes</Button>
         </Modal.Footer>
       </Modal>
 
-      <div className="advertisers-lower">
 
 
-        <div className="search-container">
-          <input style={{ padding: 10, fontSize: 20, borderRadius: 20, fontWeight: 600 }} type="text" placeholder="Search"></input>
+
+
+
+
+      {/* <h1 className='top-name-advertiser'>Offers</h1>
+        <div className="advertisers-top">
+          <a href="#">All Offers</a>
+          <a href="#">Featured Offers</a>
+          <a href="#">Offers Requests</a>
+          <a href="#">Smart Links</a>
+         
         </div>
-        <div style={{ padding: 20 }} className="main-container">
 
-          <div className="list-item">
-            <select className='form-select form-select-lg me-5 ' name="status" id="status" style={{ "cursor": "pointer" }} value={status} onChange={(e) => setStatus(e.target.value)}>
-              <option style={{ "cursor": "pointer" }} value="100"> Status</option>
-              <option style={{ "cursor": "pointer" }} value="active"   > Active </option>
-              <option style={{ "cursor": "pointer" }} value="pending"   > Pending</option>
-              <option style={{ "cursor": "pointer" }} value="done"   > Done</option>
-              <option style={{ "cursor": "pointer" }} value="Inactive"   > Inactive</option>
+        
 
-            </select>
+        <div className="advertisers-lower">
 
+
+          <div className="search-container">
+            <input style={{ padding: 10, fontSize: 20, borderRadius: 20, fontWeight: 600 }} type="text" placeholder="Search"></input>
           </div>
+          <div style={{ padding: 20 }} className="main-container">
 
-          <div className="list-item">
-            <div className="item-header" onClick={toggleTag}>
-              Availability
+            <div className="list-item">
+              <select className='form-select form-select-lg me-5 ' name="status" id="status" style={{ "cursor": "pointer" }} value={status} onChange={(e) => setStatus(e.target.value)}>
+                <option style={{ "cursor": "pointer" }} value="100"> Status</option>
+                <option style={{ "cursor": "pointer" }} value="active"   > Active </option>
+                <option style={{ "cursor": "pointer" }} value="pending"   > Pending</option>
+                <option style={{ "cursor": "pointer" }} value="done"   > Done</option>
+                <option style={{ "cursor": "pointer" }} value="Inactive"   > Inactive</option>
+
+              </select>
+
             </div>
-            {tagVisible && (
-              <div className="sub-list">
-                <input type="text" placeholder="Search"></input>
+
+            <div className="list-item">
+              <div className="item-header" onClick={toggleTag}>
+                Availability
               </div>
-            )}
-          </div>
-
-
-          <div className="list-item">
-            <div className="item-header" onClick={toggleTeammate}>
-              Advertisers
+              {tagVisible && (
+                <div className="sub-list">
+                  <input type="text" placeholder="Search"></input>
+                </div>
+              )}
             </div>
-            {teammateVisible && (
-              <div className="sub-list">
-                <input type="text" placeholder="Search"></input>
+
+
+            <div className="list-item">
+              <div className="item-header" onClick={toggleTeammate}>
+                Advertisers
               </div>
-            )}
+              {teammateVisible && (
+                <div className="sub-list">
+                  <input type="text" placeholder="Search"></input>
+                </div>
+              )}
 
-          </div>
-
-          <div className="list-item">
-            <div className="item-header" onClick={toggleCountry}>
-              Country
             </div>
-            {countryVisible && (
-              <div className="sub-list">
-                <input type="text" placeholder="Search"></input>
+
+            <div className="list-item">
+              <div className="item-header" onClick={toggleCountry}>
+                Country
               </div>
-            )}
+              {countryVisible && (
+                <div className="sub-list">
+                  <input type="text" placeholder="Search"></input>
+                </div>
+              )}
 
-          </div>
-
-          <div className="list-item">
-            <div className="item-header" onClick={toggleCategory}>
-              Category
             </div>
-            {categoryVisible && (
-              <div className="sub-list">
-                <input type="text" placeholder="Search"></input>
+
+            <div className="list-item">
+              <div className="item-header" onClick={toggleCategory}>
+                Category
               </div>
-            )}
+              {categoryVisible && (
+                <div className="sub-list">
+                  <input type="text" placeholder="Search"></input>
+                </div>
+              )}
 
-          </div>
-
-          <div className="list-item">
-            <div className="item-header" onClick={toggleGoal}>
-              Goal Type
             </div>
-            {goalVisible && (
-              <div className="sub-list">
-                <input type="text" placeholder="Search"></input>
+
+            <div className="list-item">
+              <div className="item-header" onClick={toggleGoal}>
+                Goal Type
               </div>
-            )}
+              {goalVisible && (
+                <div className="sub-list">
+                  <input type="text" placeholder="Search"></input>
+                </div>
+              )}
+
+            </div>
+
+
 
           </div>
+        </div> */}
 
 
-
-        </div>
-      </div>
-
-      
-      <div className="affilate-table-container">
-        <div className="affilate-table-container">
-          <table className="table table-striped table-hover">
-            <thead className="table-primary">
-              <tr>
-                <th className="affilate-deatils-all">No.</th>
-                <th className="affilate-deatils-all">Campagin</th>
-                <th className="affilate-deatils-all">Description</th>
-                <th className="affilate-deatils-all">Tags</th>
-                <td className="affilate-deatils-all"> URL</td>
-                <td className="affilate-deatils-all"> code</td>
-                <td className="affilate-deatils-all"> Remarks</td>
-              </tr>
-            </thead>
+      <div style={{ width: "100%" }}>
 
 
-            <tbody>
-              {
-                
-                loading ? (
-                data?.length > 0 &&
-                data.map((item, index) => (
-                  <tr key={index}>
-                    <td className="affilate-deatils-all">{index + 1}</td>
-                    {/* <td className="affilate-deatils-all">{item?.advitisor_id}</td> */}
-                    <td className="affilate-deatils-all">{item?.name}</td>
-                    <td className="affilate-deatils-description">{item?.description}</td>
-                    <td className="affilate-deatils-all">10</td>
-                    <td style={{ fontSize: 20 }} className='affilate-deatils-all'>
-                      <a href={item?.url} target="_blank" rel="noopener noreferrer">
-                        Link
-                      </a>
-                    </td>
-                    <td className="affilate-deatils-all">{item?.code}</td>
-                    {/* <td className="affilate-deatils-all">{item?._id}</td> */}
+        <div style={{ margin: "20px" }} >
+          <div >
+            <table className="table table-striped table-hover">
+              <thead className="table-primary">
+                <tr>
+                  <th >No.</th>
+                  <th >Campagin</th>
+                  <th >Description</th>
+                  <td > URL</td>
+                  <td>Code</td>
+                  <td > Delete</td>
 
-                    <td >                    
-                
-                    <Button style={{marginLeft:20}} variant="danger" onClick={()=>deleteOfferCampagin(item._id)}>
-                      Delete
-                    </Button></td>
+                </tr>
+              </thead>
 
-                  </tr>
-                ))
-              ) : <Loader />
-                
-                
+
+              <tbody>
+                {
+
+                  loading ? (
+                    data?.length > 0 &&
+                    data.map((item, index) => (
+                      <tr key={index}>
+                        <td >{index + 1}</td>
+
+                        <td >{item?.name}</td>
+                        <td >{item?.description}</td>
+                        <td style={{ fontSize: 20 }} >
+
+                          <Button colorScheme="linkedin" style={{ fontWeight: 700 }}>
+                            <a href={item?.url} target="_blank" rel="noopener noreferrer">
+                              Link
+                            </a>
+                          </Button>
+                        </td>
+
+                        <td >{item?.code}</td>
+
+
+                        <td >
+
+                          <Button style={{ marginLeft: 20 }} colorScheme='red' onClick={() => deleteOfferCampagin(item._id)}>
+                            Delete
+                          </Button>
+
+                        </td>
+
+                      </tr>
+                    ))
+                  ) : <Loader />
+
+
                 }
-            </tbody>
+              </tbody>
 
 
 
-          </table>
+            </table>
+          </div>
+
         </div>
+
+
 
       </div>
 
 
 
-    </div>
+
       <ToastContainer />
-    </>
+    </Layout>
 
   )
 }

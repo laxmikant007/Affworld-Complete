@@ -10,6 +10,7 @@ import Loader from '../components/Loader';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { addNewAdvitisors, deleteAdvitisorsData, fetchAdvitisors } from '../service/api';
+import Layout from '../components/Layout/Layout';
 
 
 
@@ -132,7 +133,7 @@ export default function Advitisors() {
 
 
   return (
-    <>
+    <Layout>
 
     
     <div style={{ padding: 15, marginLeft: 40 }} className='main-container-affilate'>
@@ -327,7 +328,7 @@ export default function Advitisors() {
       </div>
     </div>
     <ToastContainer />
-    </>
+    </Layout>
 
 
 
