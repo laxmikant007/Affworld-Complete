@@ -51,6 +51,14 @@ const Header = () => {
 
     }
 
+    const handleLogin = ()=>{
+        navigate("/login")
+    }
+
+    const handleSignup = ()=>{
+        navigate("/signup")
+    }
+
 
     const handleClick = () => {
         navigate("/")
@@ -204,7 +212,7 @@ const Header = () => {
                                     colorScheme={'teal'}
                                     size={'sm'}
                                     mr={4}
-                                    onClick={handleLogout}
+                                    onClick={handleLogin}
                                 >
                                     Login
                                 </Button>
@@ -213,7 +221,7 @@ const Header = () => {
                                     colorScheme={'teal'}
                                     size={'sm'}
                                     mr={4}
-                                    onClick={handleLogout}
+                                    onClick={handleSignup}
                                 >
                                     Signup
                                 </Button>
