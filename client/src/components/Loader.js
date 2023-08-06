@@ -4,8 +4,8 @@ import loader from "../Images/loader.gif"
 
 function Loader() {
   return (
-    <div className='text-center align-center justify-content-center d-block '>
-      <img style={{height:200, width:250, margin:'auto', marginLeft:350}} src={loader} alt="" />
+    <div className='d-flex justify-content-center'  >
+      <img style={{height:200, width:250}} src={loader} alt="" />
     </div>
   )
 }

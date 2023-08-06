@@ -17,7 +17,7 @@ import Advertisers from "./pages/Advertisers";
 import Offers from "./pages/Offers";
 import Advitisors from "./pages/Advitisors";
 import ErrorPage from "./pages/ErrorPage";
-import PrivateComponent from "./components/PrivateComponent";
+import {PrivateComponent, PrivateLoginSign} from "./components/PrivateComponent";
 import Retest from "./pages/Retest";
 
 
@@ -30,9 +30,13 @@ function App() {
       <BrowserRouter>
         {/* <Navbar /> */}
         <Routes>
+        <Route element={<PrivateLoginSign/>}>
+
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/test" element={<Retest />} />
+
+        </Route>
 
           
 

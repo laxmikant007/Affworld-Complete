@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import "./style/affilates.css";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+import { Box, Button, Text } from '@chakra-ui/react';
 import Loader from '../components/Loader';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,8 +34,8 @@ export default function Advitisors() {
 
   const [AdvitisorName, setAdvitisorName] = useState("");
   const [description, setDescription] = useState("");
-  const [loading,setLoading] = useState(false);
-  const [advitisor_id , setAdvitisor_id] = useState("")
+  const [loading, setLoading] = useState(false);
+  const [advitisor_id, setAdvitisor_id] = useState("")
 
 
 
@@ -55,7 +56,7 @@ export default function Advitisors() {
 
   const getData = async () => {
     try {
-      const result =  await fetchAdvitisors();
+      const result = await fetchAdvitisors();
       setData(result)
       setLoading(true);
 
@@ -69,8 +70,8 @@ export default function Advitisors() {
 
     try {
       const data = {
-          name: AdvitisorName, 
-          desc: description 
+        name: AdvitisorName,
+        desc: description
       }
       const result = await addNewAdvitisors(data);
       // console.log("Addadbitisor callled", result);
@@ -85,14 +86,14 @@ export default function Advitisors() {
   }
 
 
-  const deleteAdvitisor = async(id) => {
+  const deleteAdvitisor = async (id) => {
 
-  
+
     try {
       console.log("id is -->", id)
       // const url = `https://affilator.onrender.com/api/advitisor/${id}`;
       // console.log("url is-->", url)
-      
+
       // let result = await fetch(url, {
       //     method: "delete",
       //     headers: {
@@ -104,24 +105,31 @@ export default function Advitisors() {
       const result = await deleteAdvitisorsData(id);
       // console.log("result of deleting is ", result)
       // console.log("result is-->", result)
-  
+
       if (result === 204) {
         console.log("Advitisor deleted Success!!")
         showNotificationDelete();
         getData();
       }
 
-      
+
     } catch (error) {
-        console.log("error  while delete Advitisor-->", error)
+      console.log("error  while delete Advitisor-->", error)
     }
   }
 
   const addCampaginAdvi = async (id) => {
     console.log("add campagin id-->", id);
-    console.log("add campagin called");  
+    console.log("add campagin called");
     setModalVisibleCampagin(true);
     // setAdvitisor_id(id);
+  }
+
+  const boxstyle = {
+    bgGradient: "linear(to-l, #7928CA, #FF0080)",
+    bgClip: "text",
+    fontSize: "4xl",
+    fontWeight: "extrabold"
   }
 
 
@@ -135,19 +143,27 @@ export default function Advitisors() {
   return (
     <Layout>
 
-    
-    <div style={{ padding: 15, marginLeft: 40 }} className='main-container-affilate'>
 
-      <div style={{ marginTop: 60 }} className="  advertisers">
-        <h1 className='top-name-advertiser'>Advitisors</h1>
-        <div className="advertisers-top">
-          <a href="#">All Advitisors</a>
-          <a href="#">My Advitisors</a>
-          <a href="#">Pending Advitisors</a>
-          <Button variant="primary" onClick={() => setModalVisible(true)}>
-            + Add Advitisors
-          </Button>
-        </div>
+
+
+      <div >
+
+        <Box display={"flex"} flexDirection={"coloumn"} justifyContent={"space-around"}  >
+
+          <Box display={"flex"} alignItems={"center"}>
+            <Text sx={boxstyle}  >
+              Advitisors
+            </Text>
+          </Box>
+
+          <Box display={"flex"} alignItems={"center"}>
+
+            <Button colorScheme='orange' onClick={() => setModalVisible(true)}>
+              + Add Advitisors
+            </Button>
+          </Box>
+
+        </Box>
 
         <Modal show={modalVisible} onHide={() => setModalVisible(false)}>
           <Modal.Header closeButton>
@@ -170,14 +186,12 @@ export default function Advitisors() {
 
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="danger" onClick={() => setModalVisible(false)}>
+            <Button colorScheme='red' onClick={() => setModalVisible(false)}>
               Close
             </Button>
-            <Button onClick={addAdvitisors} variant="success">Save changes</Button>
+            <Button onClick={addAdvitisors} colorScheme='whatsapp'>Save changes</Button>
           </Modal.Footer>
         </Modal>
-
-        {/* campagin add Advitisor ID */}
 
         <Modal show={modalVisibleCamapgin} onHide={() => setModalVisibleCampagin(false)}>
           <Modal.Header closeButton>
@@ -186,137 +200,81 @@ export default function Advitisors() {
           <Modal.Body>
             <form>
               <label>
-              advitisor_id:
+                advitisor_id:
                 <input type="text" name="advitisor_id" onChange={(e) => setAdvitisor_id(e.target.value)} />
               </label>
-              {/* <label>
-
-                Description:
-                <input type="text" name="description" onChange={(e) => setDescription(e.target.value)} />
-              </label> */}
             </form>
 
 
 
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="danger" onClick={() => setModalVisibleCampagin(false)}>
+            <Button colorScheme='red' onClick={() => setModalVisibleCampagin(false)}>
               Close
             </Button>
-            <Button onClick={()=>setModalVisibleCampagin(false)} variant="success">Save changes</Button>
+            <Button onClick={() => setModalVisibleCampagin(false)} colorScheme='whatsapp'>Save changes</Button>
           </Modal.Footer>
         </Modal>
 
 
-        <div className="advertisers-lower">
+        {
+          loading && data.length > 0 ? (
 
-          <div style={{ padding: 20 }} className="main-container">
+            <div >
+              <table className="table table-striped table-hover">
 
+                <thead className="table-primary">
+                  <tr>
+                    <th >No.</th>
+                    <th >Advitisors</th>
+                    <th >Description</th>
 
-            <select className='form-select form-select-lg me-5 ' name="status" id="status" style={{ "cursor": "pointer" }} value={status} onChange={(e) => setStatus(e.target.value)}>
-              <option style={{ "cursor": "pointer" }} value="100"> Status</option>
-              <option style={{ "cursor": "pointer" }} value="active"   > Active </option>
-              <option style={{ "cursor": "pointer" }} value="pending"   > Pending</option>
-              <option style={{ "cursor": "pointer" }} value="done"   > Done</option>
-              <option style={{ "cursor": "pointer" }} value="Inactive"   > Inactive</option>
+                    <th >Remarks</th>
+                    <th >Add Campagin</th>
+                  </tr>
+                </thead>
+                <tbody>
 
-            </select>
+                  {
+                    data.map((item, index) => (
+                      <tr key={index}>
+                        <td >{index + 1}</td>
+                        <td >{item?.name}</td>
+                        <td >{item?.desc}</td>
 
-            <select className='form-select form-select-lg  me-5  ' name="country" id="country" style={{ "cursor": "pointer" }} value={country} onChange={(e) => setCountry(e.target.value)}>
-              <option style={{ "cursor": "pointer" }} value="100"> All Countries</option>
-              <option style={{ "cursor": "pointer" }} value="2"   > India </option>
-              <option style={{ "cursor": "pointer" }} value="5"   > USA</option>
-              <option style={{ "cursor": "pointer" }} value="50"   > Australia</option>
-              <option style={{ "cursor": "pointer" }} value="50"   > UK</option>
+                        <td >
+                          <Button colorScheme='red' onClick={() => deleteAdvitisor(item._id)}>
+                            Delete
+                          </Button>
 
-            </select>
+                        </td>
+                        <td >
+                          <Button colorScheme='purple' onClick={() => addCampaginAdvi(item._id)}>
+                            + Add Campagin
+                          </Button>
 
-            <select className='form-select form-select-lg  me-5 ' name="tag" id="tag" style={{ "cursor": "pointer" }} value={tag} onChange={(e) => setTag(e.target.value)}>
-              <option style={{ "cursor": "pointer" }} value="100"> All Tags</option>
-              <option style={{ "cursor": "pointer" }} value="Casino"   > Casino </option>
-              <option style={{ "cursor": "pointer" }} value="Bar"   > Bar</option>
-              <option style={{ "cursor": "pointer" }} value="Games"   > Games</option>
-              <option style={{ "cursor": "pointer" }} value="Betting"   > Betting</option>
-
-
-            </select>
-
-            <select className='form-select form-select-lg  me-5  ' name="city" id="city" style={{ "cursor": "pointer" }} value={teammate} onChange={(e) => setTeammate(e.target.value)}>
-              <option style={{ "cursor": "pointer" }} value="100"> Teammates</option>
-              <option style={{ "cursor": "pointer" }} value="Rahul"   > Rahul </option>
-              <option style={{ "cursor": "pointer" }} value="Lakshya"   > Lakshya</option>
-              <option style={{ "cursor": "pointer" }} value="Anil"   > Anil</option>
-              <option style={{ "cursor": "pointer" }} value="Sunil"   > Sunil</option>
-
-
-            </select>
-
-          </div>
-        </div>
-
-
-
-
-
-        <div className="affilate-table-container">
-          <div className="affilate-table-container">
-            <table className="table table-striped table-hover">
-          
-              <thead className="table-primary">
-                <tr>
-                  <th className="affilate-deatils-all">No.</th>
-                  <th className="affilate-deatils-all">Advitisors</th>
-                  <th className="affilate-deatils-all">Description</th>
-                  <th className="affilate-deatils-all">Tags</th>
-                  <th className="affilate-deatils-all">Remarks</th>
-                  <th className="affilate-deatils-all">Add</th>
-                </tr>
-              </thead>
-              <tbody>
-
-                {
-
-                 loading?(
-                  data?.length > 0 &&
-                  data.map((item, index) => (
-                    <tr key={index}>
-                      <td className="affilate-deatils-all">{index + 1}</td>
-                      <td className="affilate-deatils-all">{item?.name}</td>
-                      <td className="affilate-deatils-description">{item?.desc}</td>
-                      <td className="affilate-deatils-all">10</td>
-                      <td className="affilate-deatils-all">
-                        <Button style={{ marginLeft: 20 }} variant="danger" onClick={() => deleteAdvitisor(item._id)}>
-                          Delete
-                        </Button>
-
-                      </td>
-                      <td className="affilate-deatils-all">
-                        <Button style={{ marginLeft: 20 }} variant="success" onClick={() => addCampaginAdvi(item._id)}>
-                         + Add Campagin
-                        </Button>
-
-                      </td>
-                    </tr>
-                  ))
-                  ):<Loader/>
-                  
-
-
+                        </td>
+                      </tr>
+                    ))
                   }
 
 
-                  
-
-              </tbody>
-            </table>
-          </div>
-        </div>
 
 
+                </tbody>
+              </table>
+            </div>
 
-        <div className='main-data-affilate'>
 
-        </div>
+          ) : <Loader />
+        }
+
+
+
+
+
+
+
 
 
 
@@ -326,8 +284,8 @@ export default function Advitisors() {
 
 
       </div>
-    </div>
-    <ToastContainer />
+
+      <ToastContainer />
     </Layout>
 
 

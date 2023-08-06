@@ -147,15 +147,18 @@ export default function Offers() {
   return (
     <Layout>
 
-      <Box p={3} display={"flex"} flexDirection={"row"} >
+      <Box display={"flex"} flexDirection={"coloumn"} justifyContent={"space-around"}  >
 
-
-        <Text mr={"auto"} alignitems="center" display="flex" justifyContent="center" fontSize="4xl" sx={boxstyle}  >
-          Offers Section
-        </Text>
-        <Button colorScheme='orange' onClick={() => setModalVisible(true)}>
-          + Add Campagin
-        </Button>
+        <Box display={"flex"} alignItems={"center"}>
+          <Text sx={boxstyle}  >
+            Offers Section
+          </Text>
+        </Box>
+        <Box display={"flex"} alignItems={"center"}>
+          <Button colorScheme='orange' onClick={() => setModalVisible(true)}>
+            + Add Campagin
+          </Button>
+        </Box>
 
       </Box>
 
@@ -202,113 +205,8 @@ export default function Offers() {
         </Modal.Footer>
       </Modal>
 
-
-
-
-
-
-
-      {/* <h1 className='top-name-advertiser'>Offers</h1>
-        <div className="advertisers-top">
-          <a href="#">All Offers</a>
-          <a href="#">Featured Offers</a>
-          <a href="#">Offers Requests</a>
-          <a href="#">Smart Links</a>
-         
-        </div>
-
-        
-
-        <div className="advertisers-lower">
-
-
-          <div className="search-container">
-            <input style={{ padding: 10, fontSize: 20, borderRadius: 20, fontWeight: 600 }} type="text" placeholder="Search"></input>
-          </div>
-          <div style={{ padding: 20 }} className="main-container">
-
-            <div className="list-item">
-              <select className='form-select form-select-lg me-5 ' name="status" id="status" style={{ "cursor": "pointer" }} value={status} onChange={(e) => setStatus(e.target.value)}>
-                <option style={{ "cursor": "pointer" }} value="100"> Status</option>
-                <option style={{ "cursor": "pointer" }} value="active"   > Active </option>
-                <option style={{ "cursor": "pointer" }} value="pending"   > Pending</option>
-                <option style={{ "cursor": "pointer" }} value="done"   > Done</option>
-                <option style={{ "cursor": "pointer" }} value="Inactive"   > Inactive</option>
-
-              </select>
-
-            </div>
-
-            <div className="list-item">
-              <div className="item-header" onClick={toggleTag}>
-                Availability
-              </div>
-              {tagVisible && (
-                <div className="sub-list">
-                  <input type="text" placeholder="Search"></input>
-                </div>
-              )}
-            </div>
-
-
-            <div className="list-item">
-              <div className="item-header" onClick={toggleTeammate}>
-                Advertisers
-              </div>
-              {teammateVisible && (
-                <div className="sub-list">
-                  <input type="text" placeholder="Search"></input>
-                </div>
-              )}
-
-            </div>
-
-            <div className="list-item">
-              <div className="item-header" onClick={toggleCountry}>
-                Country
-              </div>
-              {countryVisible && (
-                <div className="sub-list">
-                  <input type="text" placeholder="Search"></input>
-                </div>
-              )}
-
-            </div>
-
-            <div className="list-item">
-              <div className="item-header" onClick={toggleCategory}>
-                Category
-              </div>
-              {categoryVisible && (
-                <div className="sub-list">
-                  <input type="text" placeholder="Search"></input>
-                </div>
-              )}
-
-            </div>
-
-            <div className="list-item">
-              <div className="item-header" onClick={toggleGoal}>
-                Goal Type
-              </div>
-              {goalVisible && (
-                <div className="sub-list">
-                  <input type="text" placeholder="Search"></input>
-                </div>
-              )}
-
-            </div>
-
-
-
-          </div>
-        </div> */}
-
-
-      <div style={{ width: "100%" }}>
-
-
-        <div style={{ margin: "20px" }} >
+      {
+        loading && data.length > 0 ? (
           <div >
             <table className="table table-striped table-hover">
               <thead className="table-primary">
@@ -317,7 +215,7 @@ export default function Offers() {
                   <th >Campagin</th>
                   <th >Description</th>
                   <td > URL</td>
-                  <td>Code</td>
+                  {/* <td>Code</td> */}
                   <td > Delete</td>
 
                 </tr>
@@ -325,54 +223,60 @@ export default function Offers() {
 
 
               <tbody>
+
                 {
 
-                  loading ? (
-                    data?.length > 0 &&
-                    data.map((item, index) => (
-                      <tr key={index}>
-                        <td >{index + 1}</td>
 
-                        <td >{item?.name}</td>
-                        <td >{item?.description}</td>
-                        <td style={{ fontSize: 20 }} >
+                  data?.map((item, index) => (
+                    <tr key={index}>
+                      <td >{index + 1}</td>
 
-                          <Button colorScheme="linkedin" style={{ fontWeight: 700 }}>
-                            <a href={item?.url} target="_blank" rel="noopener noreferrer">
-                              Link
-                            </a>
-                          </Button>
-                        </td>
+                      <td >{item?.name}</td>
+                      <td >{item?.description}</td>
+                      <td style={{ fontSize: 20 }} >
 
-                        <td >{item?.code}</td>
+                        <Button colorScheme="linkedin" style={{ fontWeight: 700 }}>
+                          <a href={item?.url} target="_blank" rel="noopener noreferrer">
+                            Link
+                          </a>
+                        </Button>
+                      </td>
+
+                      {/* <td >{item?.code}</td> */}
 
 
-                        <td >
+                      <td >
 
-                          <Button style={{ marginLeft: 20 }} colorScheme='red' onClick={() => deleteOfferCampagin(item._id)}>
-                            Delete
-                          </Button>
+                        <Button style={{ marginLeft: 20 }} colorScheme='red' onClick={() => deleteOfferCampagin(item._id)}>
+                          Delete
+                        </Button>
 
-                        </td>
+                      </td>
 
-                      </tr>
-                    ))
-                  ) : <Loader />
-
+                    </tr>
+                  ))
 
                 }
+
+
+
+
               </tbody>
 
 
 
             </table>
           </div>
+        ) : <Loader />
+      }
 
-        </div>
 
 
 
-      </div>
+
+
+
+
 
 
 
